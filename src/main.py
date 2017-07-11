@@ -209,7 +209,7 @@ class MagicCake:
 		
 	
 
-
+		print('Hello Github!')
 
 		# Updating the screen
 		pg.display.update()
