@@ -209,13 +209,13 @@ class MagicCake:
 
 
 		# Show cake ingredients 
-		for cake in self.all_cakes:
-			if cake.is_active:
-				cake.ingredients.draw(self.screen)
+		#for cake in self.all_cakes:
+			#if cake.is_active:
+			#	cake.ingredients.draw(self.screen)
 				#show ingredient name
-				for ingr in cake.ingredients:
-					ingr.draw_text()
-					ingr.show_details() # Shows detail of ingredients
+			#	for ingr in cake.ingredients:
+			#		ingr.draw_text()
+			#		ingr.show_details() # Shows detail of ingredients
 		
 
 		# Drawing CakeGeneral details
@@ -236,18 +236,29 @@ class MagicCake:
 		self.list.buttons_to_draw().draw(self.screen)
 
 		# ---------------------------------------------CAKE INGREDIENTS LIST DROWING SECTION -----------------------------------------------
-		if self.current_page == 2:
-			for cake in self.all_cakes:
-				if cake.is_active:
+		#if self.current_page == 2:
+		for cake in self.all_cakes:
+			if cake.is_active:
+				try:
 					ingrs = self.ingredients_collection.update_given_collection()
+					# Draw updated collection
+					ingrs.draw(self.screen)
+					# Draw text on items
+					#ingrs.draw_text()
+					# Draw informations about ingredient
+					for ingr in ingrs:
+						ingr.draw_text()
+						ingr.show_details()
 					self.ingredients_collection.buttons_to_draw().draw(self.screen)
+				except:
+					pass
 
 
 
 		
 	
 
-		print('Hello Github!')
+		
 
 		# Updating the screen
 		pg.display.update()
