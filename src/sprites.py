@@ -1063,13 +1063,28 @@ class List(pg.sprite.Sprite):
 		'''
 		Seting position for each element in elements selected list of given size 
 		'''
+		#start_x = WIDTH-200
+		#start_y = 20
+		#self.space = 10
+
+		#for item in self.selected:
+
+
+
+		# Old code
+		
 		for num, item in enumerate(self.selected):
 			# Check if item is on right place
 			if item.rect.y > (num + 1) * (item.rect.height + self.space) - 20:
 				# if not make it move to the right place
 				item.rect.y -= 9
 				if item.rect.y < (num + 1) * (item.rect.height + self.space) - 20:
-					item.rect.y = ((num + 1) * (item.rect.height + self.space) - 20) 
+					item.rect.y = ((num + 1) * (item.rect.height + self.space) - 20)
+			else:
+				# draw items on right place
+				item.rect.y =  self.space + 20 + num * item.rect.height
+		
+
 
 	def update_given_collection(self):
 		'''
