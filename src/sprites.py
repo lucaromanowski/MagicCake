@@ -1085,7 +1085,7 @@ class List(pg.sprite.Sprite):
 
 	def create_buttons(self):
 		'''
-		Creates buttons when list is longer then given max lenght of itself.
+		Creates buttons when list is longer then collection limit.
 		'''
 
 		# Check for position of last element
@@ -1098,11 +1098,18 @@ class List(pg.sprite.Sprite):
 
 
 		# Creating Buttons for the list
-		self.button_up = Button(self.MagicCake, x, y + 60, 90, 30)
-		self.button_down = Button(self.MagicCake, x + 110, y + 60, 90, 30, boundry_right=WIDTH-200+90)
-		self.buttons.add(self.button_up)
-		self.buttons.add(self.button_down)
-
+		if self.MagicCake.current_page == 1:
+			self.button_up = Button(self.MagicCake, x, y + 60, 90, 30)
+			self.button_down = Button(self.MagicCake, x + 110, y + 60, 90, 30, boundry_right=WIDTH-200+90)
+			self.buttons.add(self.button_up)
+			self.buttons.add(self.button_down)
+		# Buttons for ingredients list
+		elif self.MagicCake.current_page == 2:
+			self.button_up = Button(self.MagicCake, x, y + 60, 90, 30)
+			self.button_down = Button(self.MagicCake, x + 110, y + 60, 90, 30, boundry_left=-300, boundry_right=WIDTH-200+90)
+			self.buttons.add(self.button_up)
+			self.buttons.add(self.button_down)
+		print('SELF COLECTION TO RETURN: ' + str(self.collection_to_return))
 
 	def buttons_to_draw(self):
 		'''
@@ -1148,7 +1155,7 @@ class Button(pg.sprite.Sprite):
 		self.rect.y = self.pos.y
 
 		# Stop it!
-		# Left
+		# Left		
 		if self.pos.x <= self.boundry_left:
 			self.vel = vec(0, 0)
 			self.acc = vec(0, 0)
