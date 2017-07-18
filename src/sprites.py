@@ -129,16 +129,6 @@ class Cake(pg.sprite.Sprite):
 
 
 	def update(self):
-		# Check for collision with difrent all_cakes objects
-		self.check_for_hits = True
-		while self.check_for_hits:
-			hits = pg.sprite.spritecollide(self, self.MagicCake.all_cakes, False)
-			if hits:
-				# Checking for not colliding with self
-				if self != hits[0]:
-					self.rect.y = hits[0].rect.bottom + 10
-				else:
-					self.check_for_hits = False
 		
 		# Setting background color depending on status (highlighted, active)
 		# Highlighted
@@ -995,14 +985,6 @@ class List(pg.sprite.Sprite):
 		self.button_up = None
 		self.button_down = None
 
-	
-
-		# BUTTONS HERE
-		
-	#def set_scroll_butons_position(self):
-		#self.rect_up.rect.x = self.items_to_displa
-
-
 
 	def select_objects(self, collection, items_to_display=10, space=10):
 		'''
@@ -1036,7 +1018,10 @@ class List(pg.sprite.Sprite):
 
 
 
+
 		# ------------------------------------------------------------------------------DEBUG
+		
+
 		for i in self.selected:
 			print('Lista selected do  wyswietlenia' + str(i.name))
 
@@ -1063,26 +1048,13 @@ class List(pg.sprite.Sprite):
 		'''
 		Seting position for each element in elements selected list of given size 
 		'''
-		#start_x = WIDTH-200
-		#start_y = 20
-		#self.space = 10
-
-		#for item in self.selected:
-
-
-
-		# Old code
 		
-		for num, item in enumerate(self.selected):
-			# Check if item is on right place
-			if item.rect.y > (num + 1) * (item.rect.height + self.space) - 20:
-				# if not make it move to the right place
-				item.rect.y -= 9
-				if item.rect.y < (num + 1) * (item.rect.height + self.space) - 20:
-					item.rect.y = ((num + 1) * (item.rect.height + self.space) - 20)
-			else:
-				# draw items on right place
-				item.rect.y =  self.space + 20 + num * item.rect.height
+		# setting right position for each element in selected list
+		pos_y = 20
+		for item in self.selected:
+			item.rect.y = pos_y
+			pos_y += item.rect.height + 10
+
 		
 
 
@@ -1106,7 +1078,7 @@ class List(pg.sprite.Sprite):
 		'''
 		for num, item in enumerate(self.collection):
 			# Set up one position for all objects out of display range
-			if num >= self.items_to_display:
+			if num - self.start_index >= self.items_to_display:
 				item.rect.y = (self.space + item.rect.height) * self.items_to_display
 		return self.collection
 

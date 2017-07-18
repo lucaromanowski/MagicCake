@@ -120,13 +120,17 @@ class MagicCake:
 
 
 
-		# Computing an amount of proteins for cake ---------------> THIS SHOUD COMPUTE ALL INGREDIENTS VALUES NOT ONLY PROTEIN
+		# Computing an amount of macros for cake 
 		for cake in self.all_cakes:
 			cake.count_macros()
 
 
-		# Using list object to display cake list
+		# Using list object to set up limited cake list do display
 		self.list.select_objects(self.all_cakes)
+		# Draw List object collection of cakes
+
+		# Get list of cakes with modified position of items that are out of display range
+		self.all_cakes = self.list.set_out_of_list()
 
 
 
@@ -153,9 +157,7 @@ class MagicCake:
 				# Draw arrows
 				self.arrows.draw(self.screen)
 
-		#
-		#for cake in self.all_cakes:
-			#cake.draw_text() #self.all_cakes.draw_text()
+
 		
 		#Input text drawing
 		# one page one:
@@ -198,7 +200,7 @@ class MagicCake:
 		# Get list of cakes to display
 		cakes = self.list.update_given_collection()
 		# Get list of cakes with modified position of items that are out of display range
-		self.all_cakes = self.list.set_out_of_list()
+		#self.all_cakes = self.list.set_out_of_list()
 		cakes.draw(self.screen)
 		# Draw text for all cakes
 		for cake in cakes:
