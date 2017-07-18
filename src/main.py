@@ -61,6 +61,10 @@ class MagicCake:
 		# List object for displaying collections (Cakes, Ingredients)
 		self.list = List(self)
 		
+		# ingredients list
+		self.ingredients_collection = List(self)		
+
+
 		#--------------------------------TEST--------------------------------------------------------------------
 		### Create cake with ingredient with protein
 		self.test_cake = Cake(self, 'test cake')
@@ -131,6 +135,29 @@ class MagicCake:
 
 		# Get list of cakes with modified position of items that are out of display range
 		self.all_cakes = self.list.set_out_of_list()
+
+
+		# Ingredients list scrolling ----------------INGREDIENTS LIST SCROLLING
+		# list of ingredients of curently selected cake
+		self.current_cake_ingrs = []
+		# Checking if page number is 2		
+		if self.current_page == 2:
+			# Checkig wich cake is active
+			for cake in self.all_cakes:
+				if cake.is_active:
+					print('Cake is Active: ' + str(cake.name))
+					# Check if there are any ingredients to deal with
+					if len(cake.ingredients) > 0:
+						# Selecting limited amount of objects
+						self.ingredients_collection.select_objects(cake.ingredients)
+						# Get list of ingredients with modified position of items that are out of display range
+						cake.ingredients = self.ingredients_collection.set_out_of_list()
+
+
+						print('Cake ingredients: ' + str(cake.ingredients))
+						print('Selected objects: ' + str(self.ingredients_collection))
+						print('Items out of list: ' + str(cake.ingredients))
+
 
 
 
@@ -207,6 +234,15 @@ class MagicCake:
 			cake.draw_text()
 		# Draw list buttons
 		self.list.buttons_to_draw().draw(self.screen)
+
+		# ---------------------------------------------CAKE INGREDIENTS LIST DROWING SECTION -----------------------------------------------
+		if self.current_page == 2:
+			for cake in self.all_cakes:
+				if cake.is_active:
+					ingrs = self.ingredients_collection.update_given_collection()
+					self.ingredients_collection.buttons_to_draw().draw(self.screen)
+
+
 
 		
 	
