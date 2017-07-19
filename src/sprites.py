@@ -1103,10 +1103,17 @@ class List(pg.sprite.Sprite):
 			self.button_down = Button(self.MagicCake, x + 110, y + 60, 90, 30, boundry_right=WIDTH-200+90)
 			self.buttons.add(self.button_up)
 			self.buttons.add(self.button_down)
+
+			
 		# Buttons for ingredients list
 		elif self.MagicCake.current_page == 2:
-			self.button_up = Button(self.MagicCake, x, y + 60, 90, 30)
-			self.button_down = Button(self.MagicCake, x + 110, y + 60, 90, 30, boundry_left=-300, boundry_right=WIDTH-200+90)
+			self.button_up = Button(self.MagicCake, WIDTH + 20, 410 + 20, 90, 30, boundry_left=20, boundry_right=WIDTH+100)
+			self.button_down = Button(self.MagicCake, WIDTH + 60, 410 + 20, 90, 30, boundry_left=130, boundry_right=WIDTH+100)
+			# Move buttons with ingredients
+			self.button_up.acc -= vec(6, 0)
+			self.button_down.acc -= vec(6, 0)
+			
+
 			self.buttons.add(self.button_up)
 			self.buttons.add(self.button_down)
 		print('SELF COLECTION TO RETURN: ' + str(self.collection_to_return))
@@ -1167,6 +1174,9 @@ class Button(pg.sprite.Sprite):
 			self.vel = vec(0, 0)
 			self.acc = vec(0, 0)
 			self.pos.x = self.boundry_right
+
+
+
 			
 
 

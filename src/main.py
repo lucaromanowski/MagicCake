@@ -152,14 +152,23 @@ class MagicCake:
 						self.ingredients_collection.select_objects(cake.ingredients)
 						# Get list of ingredients with modified position of items that are out of display range
 						cake.ingredients = self.ingredients_collection.set_out_of_list()
+					# If there is no ingredients in selected cake, we need to clear a list
+					elif len(cake.ingredients) == 0:
+						self.ingredients_collection = List(self)
 
 
 						print('Cake ingredients: ' + str(cake.ingredients))
 						print('Selected objects: ' + str(self.ingredients_collection))
 						print('Items out of list: ' + str(cake.ingredients))
 
-
-
+		# Ingredients button bug fix
+		# Fix bug for ingredients button Ugly
+		if self.current_page == 1:
+			for button in self.ingredients_collection.buttons:
+				button.kill()
+				
+		
+		
 
 
 

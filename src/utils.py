@@ -265,8 +265,12 @@ def check_for_events(magiccake):
 								for ingr in cake.ingredients:
 									ingr.move('right')
 
-							# Move cake buttons to right
+							# Move cake buttons right
 							for button in magiccake.list.buttons:
+								button.acc += vec(random.randrange(8, 10), 0)
+
+							# Move ingredients button right
+							for button in magiccake.ingredients_collection.buttons:
 								button.acc += vec(random.randrange(8, 10), 0)
 
 							
@@ -282,8 +286,12 @@ def check_for_events(magiccake):
 								for ingr in cake.ingredients:
 									ingr.move('left')
 
-							# Move cake buttons to left
+							# Move cake buttons left
 							for button in magiccake.list.buttons:
+								button.acc -= vec(random.randrange(8, 10), 0)
+
+							# Move ingredients button left
+							for button in magiccake.ingredients_collection.buttons:
 								button.acc -= vec(random.randrange(8, 10), 0)
 
 
@@ -362,6 +370,16 @@ def check_for_events(magiccake):
 						magiccake.list.start_index += 1
 					elif button_hits[0] == magiccake.list.button_down:
 						magiccake.list.start_index -= 1
+
+				# Checking for mouse colliding with buttons on page 2 (ingredients case)
+				button_hits2 = pg.sprite.spritecollide(magiccake.mouse, magiccake.ingredients_collection.buttons, False)
+				if button_hits2:
+					# Bad way
+					if button_hits2[0] == magiccake.ingredients_collection.button_up:
+						# Increasing sttart index ob object in collection
+						magiccake.ingredients_collection.start_index += 1
+					elif button_hits2[0] == magiccake.ingredients_collection.button_down:
+						magiccake.ingredients_collection.start_index -= 1
 
 
 
