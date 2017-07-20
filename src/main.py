@@ -3,6 +3,7 @@ import pygame as pg
 from settings import *
 from sprites import *
 from utils import *
+from start import *
 
 
 class MagicCake:
@@ -72,6 +73,11 @@ class MagicCake:
 		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2', WIDTH + 20, 60, protein=13))
 		self.all_cakes.add(self.test_cake)
 
+		
+
+
+		# Running the main propgram
+		self.start_screen()
 		self.run()
 
 
@@ -271,6 +277,96 @@ class MagicCake:
 
 		# Updating the screen
 		pg.display.update()
+
+	
+	#-------------------------------------------------------------START SCREEN ------------------------------
+	
+	def start_screen(self):
+		# Creating all items for start screen
+		self.create_start_items()
+		
+		# Start main start screen loop
+		self.start_running = True
+		while self.start_running:
+			self.clock.tick(FPS)
+			# Events
+			self.start_events()
+
+			# Update
+
+
+			# Draw
+			self.start_draw()
+
+	def start_events(self):
+		'''
+		Checking for events in start screen
+		'''
+		for event in pg.event.get():
+			if event.type == pg.QUIT:
+				self.start_running= False
+				
+			# Check for keyboard for typing letters
+			if event.type == pg.KEYDOWN:
+				print('START SCREEN WORKS')
+
+	def start_update(self):
+		'''
+		Updating start menu elements
+		'''
+		
+		# Updating all sprites for start screen
+		self.all_start_sprites.update()
+
+
+
+	def start_draw(self):
+		'''
+		Drawing start menu elements
+		'''
+
+
+		# Filling with color OBLIGATORY
+		self.screen.fill(MENU_BACKGROUND_COLOR)
+
+
+
+		# Draw start menu elements
+
+		# Draw all sprites
+		self.all_start_sprites.draw(self.screen)
+
+		#Title
+		start_text(40, 20, self.screen, TITLE, 70, font_name='Tahoma', is_Bold=False, color=LILA)
+
+
+
+
+
+		# Updating the screen
+		pg.display.update()
+
+	def create_start_items(self):
+		'''
+		Creating all items for start screen
+		'''
+		
+		# Groups for start menu
+		self.all_start_sprites =pg.sprite.Group()
+
+
+		# Creating start button
+		self.start = Start(self, 40, 120)
+
+		# Adding items to the gropus
+		self.all_start_sprites.add(self.start)
+
+
+
+		
+
+
+
 
 if __name__ == '__main__':
 	mc = MagicCake()

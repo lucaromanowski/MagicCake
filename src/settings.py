@@ -25,10 +25,9 @@ HINT_COLOR = (173, 173, 173)
 CG_WIDTH = 0
 CG_HEIGHT = 0
 
-# Animation settings
-#FRICTION = -0.52
+# Menu settings
+TITLE = 'Magic Cake'
+MENU_BACKGROUND_COLOR = (255,255,224)
+LILA = (145,102,191)
+PINKY = (236,140,144)
 
-
-# VARIABLES TO REPLACE
-# ingrNameList
-# ingrNameStr
