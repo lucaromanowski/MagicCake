@@ -293,6 +293,7 @@ class MagicCake:
 			self.start_events()
 
 			# Update
+			self.start_update()
 
 
 			# Draw
@@ -310,6 +311,10 @@ class MagicCake:
 			if event.type == pg.KEYDOWN:
 				print('START SCREEN WORKS')
 
+		# Get mouse position
+		self.mouse_pos = pg.mouse.get_pos()
+		print(self.mouse_pos) 
+
 	def start_update(self):
 		'''
 		Updating start menu elements
@@ -317,6 +322,8 @@ class MagicCake:
 		
 		# Updating all sprites for start screen
 		self.all_start_sprites.update()
+
+		
 
 
 
@@ -336,8 +343,10 @@ class MagicCake:
 		# Draw all sprites
 		self.all_start_sprites.draw(self.screen)
 
-		#Title
+		# Title
 		start_text(40, 20, self.screen, TITLE, 70, font_name='Tahoma', is_Bold=False, color=LILA)
+
+		
 
 
 
@@ -358,8 +367,14 @@ class MagicCake:
 		# Creating start button
 		self.start = Start(self, 40, 120)
 
+		self.start_mouse = Mouse(self)
+
 		# Adding items to the gropus
 		self.all_start_sprites.add(self.start)
+		self.all_start_sprites.add(self.start_mouse)
+		
+
+
 
 
 
