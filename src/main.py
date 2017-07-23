@@ -76,9 +76,8 @@ class MagicCake:
 
 
 		#--------------------SAVING MODULE TESTS
-		self.rememberer = Rememberer()
-		self.rememberer.create_table()
-		self.rememberer.remember_it(self.all_cakes)
+		self.mem = Memory()
+		self.mem.save(self.test_cake)
 
 
 		
