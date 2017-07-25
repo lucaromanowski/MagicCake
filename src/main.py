@@ -76,8 +76,10 @@ class MagicCake:
 
 
 		#--------------------SAVING MODULE TESTS
-		self.mem = Memory()
+		self.mem = Memory(self)
 		self.mem.save(self.test_cake)
+		loaded = self.mem.load('test.obj')
+		self.mem.recreate_obj(loaded)
 
 
 		
