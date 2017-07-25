@@ -18,6 +18,7 @@ class Memory(object):
 		'''
 
 		if obj:
+			# temporary object
 			to = self.create_temp_obj(obj)
 
 			# Saving file via pickle
@@ -37,6 +38,8 @@ class Memory(object):
 		# Creates ingredient objects
 		for ingr in obj.ingredients:
 			ti = TempIngr(ingr.name,
+						  ingr.rect.x,
+						  ingr.rect.y,
 						  ingr.how_much,
 						  ingr.protein, 
 						  ingr.carb, 
@@ -70,8 +73,25 @@ class Memory(object):
 		print(str(temp_obj))
  		
  		# Recreate cake object
+		cake = Cake(self.program, temp_obj.cake.name)
+		print('Cake object recreated: ', str(cake.name))
 
  		# Recreate ingredient object
+		for ingr in temp_obj.ingredients:
+ 			i = Ingredient(self.program,
+ 						    ingr.name,
+ 						    ingr.x,
+ 						    ingr.y,
+ 						    ingr.how_much,
+ 						    ingr.protein,
+ 						    ingr.carb,
+ 						    ingr.fat,
+ 						    ingr.kcal,
+ 						    ingr.package_size,
+ 						    ingr.price,
+ 						   )
+ 			cake.ingredients.add(i)
+		print(str(cake.ingredients))
 
  		# Combine
 
@@ -79,7 +99,7 @@ class Memory(object):
  			 
 
 		print('Cake object recreated')
-		
+		return cake
 
 
 class TempCake(object):
@@ -98,8 +118,10 @@ class TempIngr(object):
 	Temp ingredient does not contain any non serializable elements
 	'''
 
-	def __init__(self, name, how_much, protein, carb, fat, kcal, package_size, price):
+	def __init__(self, name, x, y, how_much, protein, carb, fat, kcal, package_size, price):
 		self.name = name
+		self.x = x
+		self.y = y
 		self.how_much = how_much
 		self.protein = protein
 		self.carb = carb
@@ -107,6 +129,7 @@ class TempIngr(object):
 		self.kcal = kcal
 		self.package_size = package_size
 		self.price = price
+		
 
 
 class TempAll(object):

@@ -1,4 +1,0 @@
-test cake
-test ingredient
-test ingredient2
-end
