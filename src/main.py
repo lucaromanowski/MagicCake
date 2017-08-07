@@ -1,5 +1,6 @@
 import pygame as pg
 
+from projects import *
 from remember import *
 from settings import *
 from sprites import *
@@ -323,7 +324,7 @@ class MagicCake:
 
 		# Get mouse position
 		self.mouse_pos = pg.mouse.get_pos()
-		print(self.mouse_pos) 
+		#print(self.mouse_pos) 
 
 	def start_update(self):
 		'''
@@ -382,6 +383,10 @@ class MagicCake:
 		# Adding items to the gropus
 		self.all_start_sprites.add(self.start)
 		self.all_start_sprites.add(self.start_mouse)
+
+		# Creating projects
+		self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK)
+		self.all_start_sprites.add(self.project)
 		
 
 
