@@ -121,3 +121,11 @@ class Create(pg.sprite.Sprite):
 		 
 		# Put the image of the text on the screen at 250x250
 		surface.blit(text, [self.rect.x + 3, self.rect.y + 10])
+
+
+	def create_new_project(self):
+		"""
+		This method creates Project Creator
+		"""
+		pass
+
