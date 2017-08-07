@@ -1,5 +1,6 @@
 import pygame as pg
 
+from remember import *
 from settings import *
 from sprites import *
 from utils import *
@@ -73,6 +74,15 @@ class MagicCake:
 		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2', WIDTH + 20, 60, protein=13))
 		self.all_cakes.add(self.test_cake)
 
+
+		#--------------------SAVING MODULE TESTS
+		self.mem = Memory(self)
+		self.mem.save(self.test_cake)
+		loaded = self.mem.load('save.obj')
+		self.cake1 = self.mem.recreate_obj(loaded)
+
+
+		self.all_cakes.add(self.cake1)
 		
 
 
