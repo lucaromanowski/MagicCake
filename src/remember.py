@@ -16,7 +16,7 @@ class Memory(object):
 		'''
 		Method can take object or group of objects and save it to a file
 		'''
-
+		
 		if obj:
 			# temporary object
 			to = self.create_temp_obj(obj)
