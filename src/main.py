@@ -353,6 +353,12 @@ class MagicCake:
 
 		# Draw all sprites
 		self.all_start_sprites.draw(self.screen)
+		# Drawing discription on a screen
+		for item in self.all_start_sprites:
+			try:
+				item.draw_text(self.screen)
+			except:
+				continue
 
 		# Title
 		start_text(40, 20, self.screen, TITLE, 70, font_name='Tahoma', is_Bold=False, color=LILA)
@@ -375,17 +381,34 @@ class MagicCake:
 		self.all_start_sprites =pg.sprite.Group()
 
 
-		# Creating start button
-		self.start = Start(self, 40, 120)
 
+		# ----------ITEM CREATION-----------
+
+		# Creating start button
+		self.start = Start(self, 40, 120, LOAD_BUTTON_TEXT)
+		self.create = Create(self, 40, 170, CREATE_BUTTON_TEXT)
+
+		# Creating mouse
 		self.start_mouse = Mouse(self)
 
-		# Adding items to the gropus
+		# Creating project
+		self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK)
+
+
+
+
+
+		# ----------ADDING TO THE GROUPS ----------
+
+		
+		# Adding buttons  to the groups
 		self.all_start_sprites.add(self.start)
+		self.all_start_sprites.add(self.create)
+
+		# Adding mouse to the groups
 		self.all_start_sprites.add(self.start_mouse)
 
-		# Creating projects
-		self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK)
+		# Adding projects to the group
 		self.all_start_sprites.add(self.project)
 		
 

@@ -4,6 +4,8 @@ Things to manage projects in MagiCake
 
 import pygame as pg
 
+from settings import *
+
 
 class Project(pg.sprite.Sprite):
 	'''
@@ -25,3 +27,25 @@ class Project(pg.sprite.Sprite):
 
 
 		print("Project created")
+
+
+
+	def update(self):
+
+		# Check for collision with mouse
+		hits = pg.sprite.collide_rect(self, self.program.start_mouse)
+		if hits:
+			# Change background color on mouse over
+			self.image.fill(BLUE)
+		else:
+			# In not mouse over
+			self.image.fill(BLACK)
+
+
+
+class ProjectCreator(pg.sprite.Sprite):
+	'''
+	This class creates projects
+	'''
+	def __init__(self):
+		pass
