@@ -132,19 +132,16 @@ class Create(pg.sprite.Sprite):
 		surface.blit(text, [self.rect.x + 3, self.rect.y + 10])
 
 
-	def click(self):
+	def click(self, program):
 		'''
 		Instruction after clicking on button
 		'''
 
 		# Start project creator
-		start_new_project()
+		self.ps = ProjectStarter(program)
+		self.ps.start_new_project()
 		
 
 
-	def create_new_project(self):
-		"""
-		This method creates Project Creator
-		"""
-		pass
+
 

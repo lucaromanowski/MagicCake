@@ -87,8 +87,12 @@ class MagicCake:
 		
 
 
-		# Running the main propgram
+		# ----------------- Running the main program
+
+		# Start screen
 		self.start_screen()
+
+		# Cake screen
 		self.run()
 
 
@@ -329,10 +333,10 @@ class MagicCake:
 				if hits:
 					# Case 1: Create button
 					# Starts project creation procedure
-					hits[0].click()
+					hits[0].click(self)
 					
 
-					
+
 					
 					
 
