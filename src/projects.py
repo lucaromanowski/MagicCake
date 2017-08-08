@@ -41,6 +41,14 @@ class Project(pg.sprite.Sprite):
 			# In not mouse over
 			self.image.fill(BLACK)
 
+	def click(self):
+		'''
+		Instruction after clicking on object
+		'''
+
+		# Start project creator
+		#start_new_project()
+		pass
 
 
 class ProjectCreator(pg.sprite.Sprite):
@@ -49,3 +57,10 @@ class ProjectCreator(pg.sprite.Sprite):
 	'''
 	def __init__(self):
 		pass
+
+
+def start_new_project():
+	'''
+	This function lounches project creator
+	'''
+	print("New project started")

@@ -63,6 +63,15 @@ class Start(pg.sprite.Sprite):
 		 
 		# Put the image of the text on the screen at 250x250
 		surface.blit(text, [self.rect.x + 3, self.rect.y + 10])
+
+	def click(self):
+		'''
+		Instruction after clicking on button
+		'''
+
+		# Start project creator
+		#start_new_project()
+		pass
 			
 
 
@@ -121,6 +130,16 @@ class Create(pg.sprite.Sprite):
 		 
 		# Put the image of the text on the screen at 250x250
 		surface.blit(text, [self.rect.x + 3, self.rect.y + 10])
+
+
+	def click(self):
+		'''
+		Instruction after clicking on button
+		'''
+
+		# Start project creator
+		start_new_project()
+		
 
 
 	def create_new_project(self):

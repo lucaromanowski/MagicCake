@@ -318,9 +318,25 @@ class MagicCake:
 			if event.type == pg.QUIT:
 				self.start_running= False
 				
-			# Check for keyboard for typing letters
+			# Check for keyboard for typing letters ---------------------- TYPING LETTERS
 			if event.type == pg.KEYDOWN:
 				print('START SCREEN WORKS')
+
+			# Checking for mouse click ------------------------------MOUSE CLICK
+			if event.type == pg.MOUSEBUTTONUP:
+				# chceck for hits with menu items
+				hits = pg.sprite.spritecollide(self.start_mouse, self.all_start_sprites, False)
+				if hits:
+					# Case 1: Create button
+					# Starts project creation procedure
+					hits[0].click()
+					
+
+					
+					
+					
+
+
 
 		# Get mouse position
 		self.mouse_pos = pg.mouse.get_pos()
@@ -333,6 +349,11 @@ class MagicCake:
 		
 		# Updating all sprites for start screen
 		self.all_start_sprites.update()
+
+		# Mouse update
+		self.start_mouse_group.update()
+
+
 
 		
 
@@ -353,6 +374,10 @@ class MagicCake:
 
 		# Draw all sprites
 		self.all_start_sprites.draw(self.screen)
+
+		# Draw mouse
+		self.start_mouse_group.draw(self.screen)
+
 		# Drawing discription on a screen
 		for item in self.all_start_sprites:
 			try:
@@ -377,9 +402,11 @@ class MagicCake:
 		Creating all items for start screen
 		'''
 		
+		# ------------GROUPS------------
+		
 		# Groups for start menu
-		self.all_start_sprites =pg.sprite.Group()
-
+		self.all_start_sprites = pg.sprite.Group()
+		self.start_mouse_group = pg.sprite.Group()
 
 
 		# ----------ITEM CREATION-----------
@@ -406,7 +433,7 @@ class MagicCake:
 		self.all_start_sprites.add(self.create)
 
 		# Adding mouse to the groups
-		self.all_start_sprites.add(self.start_mouse)
+		self.start_mouse_group.add(self.start_mouse)
 
 		# Adding projects to the group
 		self.all_start_sprites.add(self.project)
