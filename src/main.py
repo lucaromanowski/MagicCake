@@ -92,8 +92,13 @@ class MagicCake:
 		# Start screen
 		self.start_screen()
 
+		# Creator screen
+		self.project_creator_screen()
+
 		# Cake screen
 		self.run()
+
+
 
 
 	def run(self):
@@ -333,8 +338,9 @@ class MagicCake:
 				if hits:
 					# Case 1: Create button
 					# Starts project creation procedure
-					hits[0].click(self)
-					
+					#hits[0].click(self)
+					# Program exits start screen and goes to next screen (project creator screen)
+					self.start_running = False
 
 
 					
@@ -357,9 +363,6 @@ class MagicCake:
 		# Mouse update
 		self.start_mouse_group.update()
 
-
-
-		
 
 
 
@@ -401,6 +404,11 @@ class MagicCake:
 		# Updating the screen
 		pg.display.update()
 
+
+
+
+
+
 	def create_start_items(self):
 		'''
 		Creating all items for start screen
@@ -441,10 +449,151 @@ class MagicCake:
 
 		# Adding projects to the group
 		self.all_start_sprites.add(self.project)
+
+
+
+
+
+
+	# -------------------------------------------- PROJECT CREATOR SECTION ---------------
+
+
+	def project_creator_screen(self):
+		'''
+		Screen for creating projects
+		'''
+		print('Project creation screen')
+
+		# creating all objects for creator screen
+		self.create_creator_items()
+
+
+		# Start main  project creator screen loop
+		self.creator_running = True
+		while self.creator_running:
+			self.clock.tick(FPS)
+			# Events
+			self.creator_events()
+
+			# Update
+			self.creator_update()
+
+
+			# Draw
+			self.creator_draw()
+
+
+	def creator_events(self):
+		'''
+		Checking for events in project creator screen
+		'''
+		for event in pg.event.get():
+			if event.type == pg.QUIT:
+				self.creator_running= False
+				
+			# Check for keyboard for typing letters ---------------------- TYPING LETTERS
+			if event.type == pg.KEYDOWN:
+				print('START SCREEN WORKS')
+
+			# Checking for mouse click ------------------------------MOUSE CLICK
+			if event.type == pg.MOUSEBUTTONUP:
+				pass
+
+
+		# Get mouse position
+		self.mouse_pos = pg.mouse.get_pos()
+
+	def creator_update(self):
+		'''
+		Updating creator menu elements
+		'''
+		
+		# Updating all sprites for start screen
+		self.all_creator_sprites.update()
+
+		# Mouse update
+		self.creator_mouse_group.update()
+
+
+
+
+	def creator_draw(self):
+		'''
+		Drawing start menu elements
+		'''
+
+
+		# Filling with color OBLIGATORY
+		self.screen.fill(MENU_BACKGROUND_COLOR)
+
+
+
+		# Draw start menu elements
+
+		# Draw all sprites
+		self.all_creator_sprites.draw(self.screen)
+
+		# Draw mouse
+		self.creator_mouse_group.draw(self.screen)
+
+		
+
+
 		
 
 
 
+
+
+		# Updating the screen
+		pg.display.update()
+
+
+	def create_creator_items(self):
+		'''
+		Creating all items for start screen
+		'''
+		
+		# ------------GROUPS------------
+		
+		# Groups for start menu
+		self.all_creator_sprites = pg.sprite.Group()
+		self.creator_mouse_group = pg.sprite.Group()
+
+
+		# ----------ITEM CREATION-----------
+
+		# Creating  button
+		
+		
+
+		# Creating mouse
+		self.creator_mouse = Mouse(self)
+
+		# Creating project
+		
+
+
+
+
+
+		# ----------ADDING TO THE GROUPS ----------
+
+		
+		# Adding buttons  to the groups
+		
+
+		# Adding mouse to the groups
+		self.creator_mouse_group.add(self.creator_mouse)
+
+		# Adding projects to the group
+		print('project creator lounched')
+		
+		
+
+
+
+		
 
 
 		

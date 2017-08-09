@@ -77,7 +77,7 @@ class ProjectCreator(pg.sprite.Sprite):
 
 class ProjectStarter(object):
 	'''
-	Basic class that handels loop
+	Basic class that handels project creator loop
 	'''
 	def __init__(self, program):
 		self.program = program
@@ -127,7 +127,10 @@ class ProjectStarter(object):
 			self.program.screen.fill(MENU_BACKGROUND_COLOR)
 
 			# Mouse draw
-			self.creator_mouse_group.draw(self.program.screen)
+			try:
+				self.creator_mouse_group.draw(self.program.screen)
+			except:
+				print('drw exception')
 
 
 			
