@@ -93,7 +93,7 @@ class MagicCake:
 		self.start_screen()
 
 		# Creator screen
-		self.project_creator_screen()
+		#self.project_creator_screen()
 
 		# Cake screen
 		self.run()
@@ -319,6 +319,10 @@ class MagicCake:
 			# Draw
 			self.start_draw()
 
+		# When you click create button precedent loop ends
+		# Creator screen
+		self.project_creator_screen()
+
 	def start_events(self):
 		'''
 		Checking for events in start screen
@@ -342,7 +346,7 @@ class MagicCake:
 					# Program exits start screen and goes to next screen (project creator screen)
 					self.start_running = False
 
-
+		
 					
 					
 
@@ -431,7 +435,7 @@ class MagicCake:
 		self.start_mouse = Mouse(self)
 
 		# Creating project
-		self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK)
+		#self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK, 'project')
 
 
 
@@ -448,7 +452,7 @@ class MagicCake:
 		self.start_mouse_group.add(self.start_mouse)
 
 		# Adding projects to the group
-		self.all_start_sprites.add(self.project)
+		#self.all_start_sprites.add(self.project)
 
 
 
@@ -487,17 +491,20 @@ class MagicCake:
 		'''
 		Checking for events in project creator screen
 		'''
-		for event in pg.event.get():
-			if event.type == pg.QUIT:
-				self.creator_running= False
+		#for event in pg.event.get():
+			#if event.type == pg.QUIT:
+				#self.creator_running= False
 				
+		check_for_keyboard_input(self)
+			
+
 			# Check for keyboard for typing letters ---------------------- TYPING LETTERS
-			if event.type == pg.KEYDOWN:
-				print('START SCREEN WORKS')
+			#if event.type == pg.KEYDOWN:
+			#	print('START SCREEN WORKS')
 
 			# Checking for mouse click ------------------------------MOUSE CLICK
-			if event.type == pg.MOUSEBUTTONUP:
-				pass
+			#if event.type == pg.MOUSEBUTTONUP:
+			#	pass
 
 
 		# Get mouse position
@@ -510,6 +517,9 @@ class MagicCake:
 		
 		# Updating all sprites for start screen
 		self.all_creator_sprites.update()
+
+		# Input update
+		self.input.update()
 
 		# Mouse update
 		self.creator_mouse_group.update()
@@ -528,13 +538,25 @@ class MagicCake:
 
 
 
-		# Draw start menu elements
+		# Draw create menu elements
+
+		# Draw input text
+		draw_input_text(self,
+					self.screen, 
+					self.input.input_str, 
+					20, 
+					20, 
+					VIOLET, 
+					40)
 
 		# Draw all sprites
 		self.all_creator_sprites.draw(self.screen)
 
 		# Draw mouse
 		self.creator_mouse_group.draw(self.screen)
+
+
+		
 
 		
 
@@ -564,6 +586,9 @@ class MagicCake:
 		# ----------ITEM CREATION-----------
 
 		# Creating  button
+
+		# Project creator button
+		self.cpbutton = CreateProjectButton(self)
 		
 		
 
@@ -584,10 +609,14 @@ class MagicCake:
 		
 
 		# Adding mouse to the groups
+		self.all_creator_sprites.add(self.cpbutton)
 		self.creator_mouse_group.add(self.creator_mouse)
 
+		# Creating project
+		self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK, 'project')
+
 		# Adding projects to the group
-		print('project creator lounched')
+		print('project creator lounched-end- default project created')
 		
 		
 
