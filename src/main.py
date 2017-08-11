@@ -19,6 +19,12 @@ class MagicCake:
 		# Pagination pages
 		self.current_page = 1
 
+		# Set to true when create project screen is on
+		self.is_creating = False
+
+		# Projects management
+		self.current_project = None
+
 
 	def new(self):
 		# Create groups
@@ -448,6 +454,9 @@ class MagicCake:
 		self.all_start_sprites.add(self.start)
 		self.all_start_sprites.add(self.create)
 
+		
+
+
 		# Adding mouse to the groups
 		self.start_mouse_group.add(self.start_mouse)
 
@@ -466,7 +475,7 @@ class MagicCake:
 		'''
 		Screen for creating projects
 		'''
-		print('Project creation screen')
+		
 
 		# creating all objects for creator screen
 		self.create_creator_items()
@@ -486,25 +495,20 @@ class MagicCake:
 			# Draw
 			self.creator_draw()
 
+		# Sets control variable to false
+		self.is_creating = False
+
 
 	def creator_events(self):
 		'''
 		Checking for events in project creator screen
 		'''
-		#for event in pg.event.get():
-			#if event.type == pg.QUIT:
-				#self.creator_running= False
+		# Check for keyboard events
 				
 		check_for_keyboard_input(self)
 			
 
-			# Check for keyboard for typing letters ---------------------- TYPING LETTERS
-			#if event.type == pg.KEYDOWN:
-			#	print('START SCREEN WORKS')
-
-			# Checking for mouse click ------------------------------MOUSE CLICK
-			#if event.type == pg.MOUSEBUTTONUP:
-			#	pass
+			
 
 
 		# Get mouse position
@@ -547,7 +551,13 @@ class MagicCake:
 					20, 
 					20, 
 					VIOLET, 
-					40)
+					40,
+					coursor=self.input.coursor,
+					hint1='Podaj nazwe nowego projektu',
+					hint2='Podaj nazwe nowego projektu',
+					hint3='Podaj nazwe nowego projektu',
+					hint4='Podaj nazwe nowego projektu',
+					hint5='Podaj nazwe nowego projektu',)
 
 		# Draw all sprites
 		self.all_creator_sprites.draw(self.screen)
@@ -581,6 +591,9 @@ class MagicCake:
 		# Groups for start menu
 		self.all_creator_sprites = pg.sprite.Group()
 		self.creator_mouse_group = pg.sprite.Group()
+
+		# Adding input to a the group
+		#self.all_creator_sprites.add(self.input)
 
 
 		# ----------ITEM CREATION-----------
@@ -617,6 +630,11 @@ class MagicCake:
 
 		# Adding projects to the group
 		print('project creator lounched-end- default project created')
+
+
+		# Sets control variable to true
+		self.is_creating = True
+
 		
 		
 

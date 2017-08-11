@@ -402,15 +402,20 @@ def draw_input_text(magiccake,
 					is_bald=False, 
 					font_name='Courier', 
 					is_italic=False, 
-					is_aa=True,):
+					is_aa=True,
+					hint1='Wpisz nazwe ciasta',
+					hint2='Wpisz nazwe kolejnego ciasta',
+					hint3='Wpisz nazwe skladnika',
+					hint4='Wpisz nazwe kolejnego skladnika',
+					hint5='Podaj nową wartość'):
 	# Input displayed only on main page
 #if magiccake.current_page == 1:
 	# Set up for input hints
-	hint1 = 'Wpisz nazwe ciasta'
-	hint2 = 'Wpisz nazwe kolejnego ciasta'
-	hint3 = 'Wpisz nazwe skladnika'
-	hint4 = 'Wpisz nazwe kolejnego skladnika'
-	hint5 = 'Podaj nową wartość'
+	hint1 = hint1
+	hint2 = hint2
+	hint3 = hint3
+	hint4 = hint4
+	hint5 = hint5
 	COL = color
 	text = text
 	# Hint before entering first cake name

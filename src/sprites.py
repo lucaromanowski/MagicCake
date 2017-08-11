@@ -46,6 +46,12 @@ class Input(pg.sprite.Sprite):
 		#print(self.input_list)
 		#print(len(self.input_list))
 		#print(self.coursor)
+	
+	def clear(self):
+		'''
+		This method clears input
+		'''
+		self.input_list = []
 
 
 class Cake(pg.sprite.Sprite):

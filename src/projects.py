@@ -29,7 +29,7 @@ class Project(pg.sprite.Sprite):
 
 
 
-		print("Project created")
+		print("Project created, name: ", str(self.name))
 
 
 
@@ -278,24 +278,23 @@ def check_for_keyboard_input(magiccake):
 
 				# Making cake after user presses enter key
 				if event.key == pg.K_RETURN  :
-					# Check for page 1
-					if magiccake.current_page == 1:
-						if len(magiccake.input.input_list) > 0:
-							for cake in magiccake.all_cakes:
-								if cake.is_active:
-									# Create ingredient and add it to cake
-									i = Ingredient(magiccake, magiccake.input.input_str, WIDTH + 20, 20 + 40 * len(cake.ingredients))
-									cake.ingredients.add(i)
-									#print('INGREDIENT CREATED named: ' + str(i.name))
-									magiccake.input.input_list = []
-									break
-							if len(magiccake.input.input_list) > 0:
-								# Create cake and add it to groups
-								cake = Cake(magiccake, magiccake.input.input_str)
-								#magiccake.all_sprites.add(cake)
-								magiccake.all_cakes.add(cake)
-								# Clear input
-								magiccake.input.input_list = []
+					# Check if there is a name for project
+					if len(magiccake.input.input_list) > 0:
+						
+						# Check if we are in project creating mode
+						if magiccake.is_creating:
+							# Create project
+							p = Project(magiccake, 0, 0, 200, 40, BLACK, magiccake.input.input_str )
+							# Setting up new project as current project in our program
+							magiccake.current_project = p
+							print('current project set up')
+
+							# Clear input
+							magiccake.input.clear()
+
+							# Exit creator
+							magiccake.creator_running = False
+
 							
 
 
