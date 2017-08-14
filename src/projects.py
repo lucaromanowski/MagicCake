@@ -283,11 +283,19 @@ def check_for_keyboard_input(magiccake):
 						
 						# Check if we are in project creating mode
 						if magiccake.is_creating:
+							
 							# Create project
 							p = Project(magiccake, 0, 0, 200, 40, BLACK, magiccake.input.input_str )
+
+							# Clear current project (only one current project may be in a group)
+							magiccake.current_project.empty()
+							print('Current project group cleared')
+
 							# Setting up new project as current project in our program
-							magiccake.current_project = p
+							magiccake.current_project.add(p)
 							print('current project set up')
+
+
 
 							# Clear input
 							magiccake.input.clear()

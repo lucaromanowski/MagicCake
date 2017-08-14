@@ -23,7 +23,9 @@ class MagicCake:
 		self.is_creating = False
 
 		# Projects management
-		self.current_project = None
+		self.current_project = pg.sprite.Group()
+
+
 
 
 	def new(self):
@@ -298,6 +300,8 @@ class MagicCake:
 
 		
 	
+		
+
 
 		
 
