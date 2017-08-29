@@ -7,6 +7,11 @@ from sprites import *
 from utils import *
 from start import *
 
+from resources.test import testfunc
+from resources.listofprojects import ListOfProjects
+from resources.project import NewProject
+from resources.projectcreator import ProjectCreator
+
 
 class MagicCake:
 	def __init__(self):
@@ -24,6 +29,19 @@ class MagicCake:
 
 		# Projects management
 		self.current_project = pg.sprite.Group()
+
+
+		#TEST
+
+		self.lop = ListOfProjects()
+		# 
+		self.lop.projects.append(ProjectCreator().create_project())
+		print('TESTY PROJECT CREATORA--------------')
+		print(str(self.lop.projects))
+		print('KONIEC TESTOW-----------------')
+
+
+		#print(str(lop.projects))
 
 
 
