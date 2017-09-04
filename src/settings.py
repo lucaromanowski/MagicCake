@@ -1,3 +1,5 @@
+import os
+
 # Screen settings
 WIDTH = 1100
 HEIGHT = 600
@@ -33,3 +35,7 @@ PINKY = (236,140,144)
 
 LOAD_BUTTON_TEXT = "Zaladuj"
 CREATE_BUTTON_TEXT = "Nowy project"
+
+
+# Saving and Loading 
+SAVE_FOLDER = '\save'

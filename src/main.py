@@ -11,6 +11,7 @@ from resources.test import testfunc
 from resources.listofprojects import ListOfProjects
 from resources.project import NewProject
 from resources.projectcreator import ProjectCreator
+from resources.projectsaver import ProjectSaver
 
 
 class MagicCake:
@@ -28,16 +29,26 @@ class MagicCake:
 		self.is_creating = False
 
 		# Projects management
-		self.current_project = pg.sprite.Group()
+		self.current_project = 'Test cureeent project should be set to None'
 
 
-		#TEST
+
+
+		#TEST -------------------------------------TEST---------------------------------TEST
 
 		self.lop = ListOfProjects()
-		# 
-		self.lop.projects.append(ProjectCreator().create_project())
+
+		# Creating project
+		self.pc = ProjectCreator()
+		self.tp = self.pc.create_project('first project')
+		self.lop.projects.append(self.tp)
+		self.current_project = self.tp
+
+		#self.lop.projects.append(ProjectCreator().create_project('first project'))
 		print('TESTY PROJECT CREATORA--------------')
 		print(str(self.lop.projects))
+		self.ps = ProjectSaver(self)
+		self.ps.save()
 		print('KONIEC TESTOW-----------------')
 
 

@@ -12,5 +12,5 @@ class ProjectCreator(object):
 		pass
 
 
-	def create_project(self):
-		return NewProject()
+	def create_project(self, name):
+		return NewProject(name)
