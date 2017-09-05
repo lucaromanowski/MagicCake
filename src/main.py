@@ -34,25 +34,9 @@ class MagicCake:
 
 
 
-		#TEST -------------------------------------TEST---------------------------------TEST
-
-		self.lop = ListOfProjects()
-
-		# Creating project
-		self.pc = ProjectCreator()
-		self.tp = self.pc.create_project('first project')
-		self.lop.projects.append(self.tp)
-		self.current_project = self.tp
-
-		#self.lop.projects.append(ProjectCreator().create_project('first project'))
-		print('TESTY PROJECT CREATORA--------------')
-		print(str(self.lop.projects))
-		self.ps = ProjectSaver(self)
-		self.ps.save()
-		print('KONIEC TESTOW-----------------')
 
 
-		#print(str(lop.projects))
+		
 
 
 
@@ -121,6 +105,37 @@ class MagicCake:
 
 
 		self.all_cakes.add(self.cake1)
+
+
+		#TEST -------------------------------------SAVING MODULE 2 TESTS---------------------------------TEST
+
+		print('TESTY PROJECT CREATORA--------------')
+		### Create cake with ingredient with protein
+		self.test_cake = Cake(self, 'test cake save module')
+		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient save mod', WIDTH + 20, 20, protein=20))
+		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2, save mod', WIDTH + 20, 60, protein=13))
+		self.all_cakes.add(self.test_cake)
+
+
+		self.lop = ListOfProjects()
+
+		# Creating project
+		self.pc = ProjectCreator()
+		self.tp = self.pc.create_project('first project')
+		self.lop.projects.append(self.tp)
+		self.current_project = self.tp
+
+		# Set all cakes to current project cakes
+		self.current_project.cakes = self.all_cakes
+		print('ciasta obecnego projektu: ', str(self.current_project.cakes))
+
+		#self.lop.projects.append(ProjectCreator().create_project('first project'))
+		
+		print(str(self.lop.projects))
+		self.ps = ProjectSaver(self)
+		self.ps.save()
+		print('KONIEC TESTOW-----------------')
+
 		
 
 
