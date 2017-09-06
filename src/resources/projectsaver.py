@@ -33,22 +33,17 @@ class ProjectSaver(object):
 		# Create main save folder if needen
 		self.ensure_dir(SAVE_FOLDER)
 
-		
-
 		# Objects ready to serialize
 		objects_to_save = self.convert_collection(self.source_project.cakes)
 
-
-
 		#------- Project Folder Creation --------#
 
-		# Create paths for current project
+		# Create path for current project
 		path = os.path.dirname(os.path.abspath(__file__))
 
-
+		# Creating folder name for current project
 		project_folder = '\\'+str(self.source_project.name)
 		
-
 		# Creating folder for current project
 		folder_creation = True
 		num = 1
@@ -71,24 +66,13 @@ class ProjectSaver(object):
 				# Reset path to avoid nested directories
 				path = os.path.dirname(os.path.abspath(__file__))
 
+		# Saving cakes to a files
+		for cake in objects_to_save:
 
-
-
-
-
-				print('FOLDER ALREADY EXISTS')
-		
-
-
-
-
-
-		
-
-
-
-
-		
+			with open((path+project_folder+cake.cake.name+".obj").replace(" ",""), 'wb') as f:
+				print(path+cake.cake.name+".obj")
+				pickle.dump(cake, f)
+	
 
 	def ensure_dir(self, directory):
 		'''
@@ -144,7 +128,6 @@ class ProjectSaver(object):
 			temp_all_list.append(ta)
 		
 		return temp_all_list
-
 
 
 class TempCake(object):

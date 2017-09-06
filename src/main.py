@@ -32,15 +32,6 @@ class MagicCake:
 		self.current_project = 'Test cureeent project should be set to None'
 
 
-
-
-
-
-		
-
-
-
-
 	def new(self):
 		# Create groups
 		self.all_sprites = pg.sprite.Group() # Except: Cake
@@ -87,6 +78,8 @@ class MagicCake:
 		
 		# ingredients list
 		self.ingredients_collection = List(self)		
+
+
 
 
 		#--------------------------------TEST--------------------------------------------------------------------
