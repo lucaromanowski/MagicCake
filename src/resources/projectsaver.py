@@ -66,12 +66,12 @@ class ProjectSaver(object):
 				# Reset path to avoid nested directories
 				path = os.path.dirname(os.path.abspath(__file__))
 
-		# Saving cakes to a files
-		for cake in objects_to_save:
-
-			with open((path+project_folder+cake.cake.name+".obj").replace(" ",""), 'wb') as f:
-				print(path+cake.cake.name+".obj")
-				pickle.dump(cake, f)
+		# Create temporary project object that will be saved
+		tpts = TempProject(self.source_project.name, objects_to_save)
+		
+		# Saving temporary project object to a files		
+		with open((path+project_folder+".obj").replace(" ",""), 'wb') as f:
+			pickle.dump(tpts, f)
 	
 
 	def ensure_dir(self, directory):
@@ -169,3 +169,15 @@ class TempAll(object):
 		# First parameter is a cake obj, second is a list of ingredients
 		self.cake = cake
 		self.ingredients = ingredients
+
+
+class TempProject(object):
+	'''
+	Object of this class keeps temporary cakes with temporary ingredients.
+	Instance is intendent to be serialized via pickle.
+	'''
+
+	def __init__(self, name, project_cakes):
+		self.name = name
+		self.project_cakes = project_cakes 
+		print('TempProject saved, name: ', str(self.name), ' cakes: ', str(self.project_cakes))

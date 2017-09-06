@@ -11,6 +11,7 @@ from resources.test import testfunc
 from resources.listofprojects import ListOfProjects
 from resources.project import NewProject
 from resources.projectcreator import ProjectCreator
+from resources.projectloader import ProjectLoader
 from resources.projectsaver import ProjectSaver
 
 
@@ -103,7 +104,10 @@ class MagicCake:
 		#TEST -------------------------------------SAVING MODULE 2 TESTS---------------------------------TEST
 
 		print('TESTY PROJECT CREATORA--------------')
+
 		### Create cake with ingredient with protein
+		print()
+		print('Project creating test part --->')
 		self.test_cake = Cake(self, 'test cake save module')
 		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient save mod', WIDTH + 20, 20, protein=20))
 		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2, save mod', WIDTH + 20, 60, protein=13))
@@ -123,10 +127,24 @@ class MagicCake:
 		print('ciasta obecnego projektu: ', str(self.current_project.cakes))
 
 		#self.lop.projects.append(ProjectCreator().create_project('first project'))
-		
+		print()
+		print('Project saving tests --->')
 		print(str(self.lop.projects))
 		self.ps = ProjectSaver(self)
 		self.ps.save()
+
+
+		# ---LOADING PART
+		print()
+		print('Project loader tests --->')
+		self.pl = ProjectLoader(self)
+		self.pl.load_all_projects()
+		self.pl.load_all_projects('/blabla/ble')
+
+
+
+
+
 		print('KONIEC TESTOW-----------------')
 
 		
