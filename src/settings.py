@@ -38,4 +38,4 @@ CREATE_BUTTON_TEXT = "Nowy project"
 
 
 # Saving and Loading 
-SAVE_FOLDER = '\save'
+SAVE_FOLDER = 'save'

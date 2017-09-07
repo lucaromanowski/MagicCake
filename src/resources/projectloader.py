@@ -27,14 +27,33 @@ class ProjectLoader(object):
 		'''
 		print('load_all_projects ivoked')
 		if not path:
-			path = os.path.dirname(os.path.abspath(__file__))+SAVE_FOLDER
-		print('path: ', str(path))
+			path = os.path.join(os.path.dirname(os.path.abspath(__file__)), SAVE_FOLDER)
+		print('path with pos path join: ', str(path))
 
 		# Get project folders
-		walk = os.walk(path)
-		for w in walk:
-
-			print(str(w))
-
-
+		print()
+		print('Walk starts')
 		
+		# We are looking for any project files in save catalogue
+		for walk_path, dirs, files in os.walk(path):
+			print()
+			print(walk_path)
+			print(dirs)
+			print(files)
+			if files:
+				print('Files found: ', str(files))
+				# Opening the file
+				try:
+					for file in files:
+						print('File to open: ', str(file))
+						with open(os.path.join(walk_path, file), 'rb') as f:
+							print('File opened')
+							# Load file with pickle
+							proj = pickle.load(f) 
+							# test append
+							self.all_projects.append(proj)
+				except:
+					print("Can't load save file")
+
+		print('All loaded projects: ', str(self.all_projects))
+		print()

@@ -21,14 +21,14 @@ class ProjectSaver(object):
 	def save(self, project=None):
 		'''
 		This method saves project objects to the files.
-		Key word argument objects allows to set any project to save.
-		By default objects is set to None. That means the this method will save collection 
+		Key word argument project allows to set any project to save.
+		By default project is set to None. That means the this method will save collection 
 		of cakes for current project. 
 		'''
 
 		# Check if there is any given collection to save, if not this merthod will use default collection
 		if project:
-			self.source_project = objects
+			self.source_project = project
 
 		# Create main save folder if needen
 		self.ensure_dir(SAVE_FOLDER)
@@ -39,38 +39,59 @@ class ProjectSaver(object):
 		#------- Project Folder Creation --------#
 
 		# Create path for current project
-		path = os.path.dirname(os.path.abspath(__file__))
+		#path = os.path.dirname(os.path.abspath(__file__))
 
 		# Creating folder name for current project
-		project_folder = '\\'+str(self.source_project.name)
+		project_folder = (self.source_project.name)
+		print('Project folder: ', str(project_folder))
 		
 		# Creating folder for current project
 		folder_creation = True
 		num = 1
+		print()
+		print('Project folder creation to save starts')
 		while folder_creation:
+			print('Control number', str(num))
 			try:
-				# Appending numberf sufix for new project with a name that already exists
+				# Appending number sufix for new project with a name that already exists
 				if num > 1:
-					path = (path+SAVE_FOLDER+project_folder+str(num)).replace(" ", "")
-					print(path)
+					#path = (path+SAVE_FOLDER+project_folder+str(num)).replace(" ", "")
+					path = os.path.join(os.path.dirname(os.path.abspath(__file__)), SAVE_FOLDER, project_folder.replace(" ", "")+str(num))
+					print('Path form first case: ', path)
+					print('Control number', str(num))
+					print()
+					#print('Test path form loader: ', str(os.path.join(os.path.dirname(os.path.abspath(__file__)), SAVE_FOLDER)))
 				else:
 					# Case when project name does not exist
-					path = (path+SAVE_FOLDER+project_folder).replace(" ", "")
+					path = os.path.join(os.path.dirname(os.path.abspath(__file__)), SAVE_FOLDER, project_folder.replace(" ", ""))
+					print('Path second case statment: ', str(path))
+					print('Control number', str(num))
+					print()
+					#path = (os.path.join(path, SAVE_FOLDER, (project_folder).replace(" ", "")))
 				
 				# This folder can allready exist
+				print('Control number', str(num))
+				print('Creates folder')
 				os.makedirs(path)
 				folder_creation = False
 			except:
 				# When folder with project name already exists, we increase the counter
 				num += 1
 				# Reset path to avoid nested directories
-				path = os.path.dirname(os.path.abspath(__file__))
+				#path = os.path.dirname(os.path.abspath(__file__))
 
+		# Let's use a folder name to create file name
+		file_name = project_folder
+		# In case when we create project with thissame name that already ecisting one, we add number to filename
+		if num > 1:
+			file_name = project_folder+str(num)
+		
 		# Create temporary project object that will be saved
 		tpts = TempProject(self.source_project.name, objects_to_save)
 		
 		# Saving temporary project object to a files		
-		with open((path+project_folder+".obj").replace(" ",""), 'wb') as f:
+		with open(os.path.join(path, file_name.replace(" ","")+".obj"), 'wb') as f:
+			print('Dumping file to: ', str(os.path.join(path, project_folder.replace(" ","")+".obj")))
 			pickle.dump(tpts, f)
 	
 
@@ -81,8 +102,7 @@ class ProjectSaver(object):
 
 		try:
 			# Setting up a path for directory
-			path = os.path.dirname(os.path.abspath(__file__))
-			path = path + SAVE_FOLDER
+			path = os.path.join(os.path.dirname(os.path.abspath(__file__)),  SAVE_FOLDER)
 
 			# Making directory
 			os.makedirs(path)
