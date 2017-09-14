@@ -11,6 +11,7 @@ from resources.test import testfunc
 from resources.listofprojects import ListOfProjects
 from resources.project import NewProject
 from resources.projectcreator import ProjectCreator
+from resources.projectdisplay import ScrollListDisplay
 from resources.projectloader import ProjectLoader
 from resources.projectsaver import ProjectSaver
 
@@ -464,6 +465,9 @@ class MagicCake:
 		# Title
 		start_text(40, 20, self.screen, TITLE, 70, font_name='Tahoma', is_Bold=False, color=LILA)
 
+
+		
+
 		
 
 
@@ -482,12 +486,29 @@ class MagicCake:
 		'''
 		Creating all items for start screen
 		'''
+
+		# ------------FILE LOADER -----------
+		print()
+		print('START PRAWDZIWYCH TESTOW -------------')
+		print()
+		print('REAL project loader test START---->')
+		# Creating project loader object
+		self.project_loader = ProjectLoader(self)
+		# Loading projects from files 
+		self.project_loader.load_all_projects()
+		print('Projects loaded: ', str(self.project_loader.all_loaded_projects))
+		# Creating Scroll List Display
+		self.scroll_list_display = ScrollListDisplay(self, self.project_loader.all_loaded_projects, self.screen)
+
+
 		
-		# ------------GROUPS------------
+		# ------------GROUPS-----------------
 		
 		# Groups for start menu
 		self.all_start_sprites = pg.sprite.Group()
 		self.start_mouse_group = pg.sprite.Group()
+
+		
 
 
 		# ----------ITEM CREATION-----------
@@ -512,6 +533,11 @@ class MagicCake:
 		# Adding buttons  to the groups
 		self.all_start_sprites.add(self.start)
 		self.all_start_sprites.add(self.create)
+
+		
+			
+
+		
 
 		
 
