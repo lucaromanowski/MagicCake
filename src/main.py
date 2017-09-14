@@ -433,6 +433,11 @@ class MagicCake:
 		# Mouse update
 		self.start_mouse_group.update()
 
+		# TEST UPDATE
+		# scroll display lis
+		#self.scroll_list_display.draw(self.screen)
+		self.test_draw.update()
+
 
 
 
@@ -466,7 +471,10 @@ class MagicCake:
 		start_text(40, 20, self.screen, TITLE, 70, font_name='Tahoma', is_Bold=False, color=LILA)
 
 
-		
+		# TEST DRAW
+		# scroll display lis
+		#self.scroll_list_display.draw(self.screen)
+		self.test_draw.draw(self.screen)
 
 		
 
@@ -508,6 +516,10 @@ class MagicCake:
 		self.all_start_sprites = pg.sprite.Group()
 		self.start_mouse_group = pg.sprite.Group()
 
+		# TEST GROUP
+		self.test_draw = pg.sprite.Group()
+		self.test_draw.add(self.scroll_list_display)
+
 		
 
 
@@ -533,6 +545,8 @@ class MagicCake:
 		# Adding buttons  to the groups
 		self.all_start_sprites.add(self.start)
 		self.all_start_sprites.add(self.create)
+
+
 
 		
 			
