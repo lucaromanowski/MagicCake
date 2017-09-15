@@ -11,7 +11,7 @@ from resources.test import testfunc
 from resources.listofprojects import ListOfProjects
 from resources.project import NewProject
 from resources.projectcreator import ProjectCreator
-from resources.projectdisplay import ScrollListDisplay
+from resources.projectdisplay import ScrollListDisplay, SideBar
 from resources.projectloader import ProjectLoader
 from resources.projectsaver import ProjectSaver
 
@@ -532,6 +532,9 @@ class MagicCake:
 		# Creating mouse
 		self.start_mouse = Mouse(self)
 
+		# SideBar <--TEST
+		self.side_bar = SideBar(self, 20, 60, attached_to=self.scroll_list_display )
+
 		# Creating project
 		#self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK, 'project')
 
@@ -545,6 +548,9 @@ class MagicCake:
 		# Adding buttons  to the groups
 		self.all_start_sprites.add(self.start)
 		self.all_start_sprites.add(self.create)
+
+		# Add sidebar to the group <--TEST
+		self.all_start_sprites.add(self.side_bar)
 
 
 

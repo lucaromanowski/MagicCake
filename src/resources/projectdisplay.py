@@ -69,9 +69,49 @@ class ScrollListDisplay(pg.sprite.Sprite):
 		return collection
 
 
-	def update(self, scroll_bar):
+	#def update(self, scroll_bar):
 		'''
 		This method updates position of all collection elements accordingly with position
 		of side scroll bar.
 		'''
+		#pass
+
+
+class SideBar(pg.sprite.Sprite):
+	'''
+	This class represents side bar. 
+	'''
+	def __init__(self, program, width, height, x=30, y=60, collection=None, attached_to=None, spacing=10):
+		pg.sprite.Sprite.__init__(self)
+		self.program = program
+		self.image = pg.Surface((width, height))
+		self.image.fill(RED)
+		self.rect = self.image.get_rect()
+		
+		# Checking if there is any object the SideBar is attached to.
+		# If it exists, SideBar is positioned relativly to this object.
+		if attached_to:
+			self.rect.x = attached_to.rect.x + attached_to.rect.width + spacing
+			self.rect.y = attached_to.rect.y
+		else:
+			self.rect.x = x
+			self.rect.y = y
+
+		print('Side bar position x: ', str(self.rect.x), ' | position y: ', str(self.rect.y))
+
+		self.is_hover = False
+
+		# Setting up collection wich will be controlled by side bar
+		self.collection = collection
+
+
+		print()
+		print('Side bar created')
+
+
+	def update(self):
+		'''
+		This method updates position of all elements in collection.
+		'''
+
 		pass
