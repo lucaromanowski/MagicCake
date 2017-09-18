@@ -410,8 +410,9 @@ class MagicCake:
 					# Starts project creation procedure
 					#hits[0].click(self)
 					# Program exits start screen and goes to next screen (project creator screen)
-					self.start_running = False
-
+					#self.start_running = False
+					pass
+			
 		
 					
 					
@@ -505,23 +506,7 @@ class MagicCake:
 		# Loading projects from files 
 		self.project_loader.load_all_projects()
 		print('Projects loaded: ', str(self.project_loader.all_loaded_projects))
-		# Creating Scroll List Display
-		self.scroll_list_display = ScrollListDisplay(self, self.project_loader.all_loaded_projects, self.screen)
-
-
 		
-		# ------------GROUPS-----------------
-		
-		# Groups for start menu
-		self.all_start_sprites = pg.sprite.Group()
-		self.start_mouse_group = pg.sprite.Group()
-
-		# TEST GROUP
-		self.test_draw = pg.sprite.Group()
-		self.test_draw.add(self.scroll_list_display)
-
-		
-
 
 		# ----------ITEM CREATION-----------
 
@@ -532,17 +517,27 @@ class MagicCake:
 		# Creating mouse
 		self.start_mouse = Mouse(self)
 
+		# Creating Scroll List Display
+		self.scroll_list_display = ScrollListDisplay(self, self.project_loader.all_loaded_projects, self.screen)
+
 		# SideBar <--TEST
 		self.side_bar = SideBar(self, 20, 60, attached_to=self.scroll_list_display )
 
 		# Creating project
 		#self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK, 'project')
+		
 
 
+		# ------------GROUPS-----------------
+		
+		# Groups for start menu
+		self.all_start_sprites = pg.sprite.Group()
+		self.start_mouse_group = pg.sprite.Group()
 
+		# TEST GROUP
+		self.test_draw = pg.sprite.Group()
+		self.test_draw.add(self.scroll_list_display)
 
-
-		# ----------ADDING TO THE GROUPS ----------
 
 		
 		# Adding buttons  to the groups

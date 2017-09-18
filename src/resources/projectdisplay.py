@@ -87,6 +87,7 @@ class SideBar(pg.sprite.Sprite):
 		self.image = pg.Surface((width, height))
 		self.image.fill(RED)
 		self.rect = self.image.get_rect()
+		self.attached_to = attached_to
 		
 		# Checking if there is any object the SideBar is attached to.
 		# If it exists, SideBar is positioned relativly to this object.
@@ -99,7 +100,9 @@ class SideBar(pg.sprite.Sprite):
 
 		print('Side bar position x: ', str(self.rect.x), ' | position y: ', str(self.rect.y))
 
+		# Flags
 		self.is_hover = False
+		self.is_scrollable = False # This flag helps to move side bar when coursor is of the side bar
 
 		# Setting up collection wich will be controlled by side bar
 		self.collection = collection
@@ -114,4 +117,29 @@ class SideBar(pg.sprite.Sprite):
 		This method updates position of all elements in collection.
 		'''
 
-		pass
+		# Side bar move
+		# Checking if any mouse button is pressed
+		mp = pg.mouse.get_pressed()
+		# Getting mouse position
+		pos = pg.mouse.get_pos()
+		# Checking for collision between mouse and side bar
+		if mp[0]:
+			if (self.rect.x + self.rect.width) > pos[0] > self.rect.x and (self.rect.y + self.rect.height) > pos[1] > self.rect.y:
+				# if collision occurs set flag o true
+				self.is_scrollable = True
+			if self.is_scrollable:
+				# if flag is set to true, change side bar position accordingly to mouse position
+				self.rect.y = pos[1]
+		# if mouse button 1 is not pressed, disable scrolling
+		else:
+			self.is_scrollable = False
+
+		
+		# Set bounderies 
+
+
+
+			
+				
+
+
