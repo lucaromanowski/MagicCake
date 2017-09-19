@@ -476,6 +476,8 @@ class MagicCake:
 		# scroll display lis
 		#self.scroll_list_display.draw(self.screen)
 		self.test_draw.draw(self.screen)
+		# draw projects 
+		self.scroll_list_display.sprite_group.draw(self.screen)
 
 		
 
@@ -521,7 +523,11 @@ class MagicCake:
 		self.scroll_list_display = ScrollListDisplay(self, self.project_loader.all_loaded_projects, self.screen)
 
 		# SideBar <--TEST
-		self.side_bar = SideBar(self, 20, 60, attached_to=self.scroll_list_display )
+		self.side_bar = SideBar(self,
+								20, 
+								60, 
+								collection=self.scroll_list_display.sprite_group, 
+								attached_to=self.scroll_list_display )
 
 		# Creating project
 		#self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK, 'project')

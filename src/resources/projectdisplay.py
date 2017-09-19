@@ -3,7 +3,9 @@ Managing dysplaying of projects as a list with scroll bar
 '''
 import pygame as pg
 
+from collections import deque
 from settings import *
+
 
 
 class ScrollListDisplay(pg.sprite.Sprite):
@@ -63,10 +65,54 @@ class ScrollListDisplay(pg.sprite.Sprite):
 
 
 		print()
-		print('seting up initial position for projects')
+		print('seting up initial position for projects', "x: ",str(initial_x),"y: ", str(initial_y))
+		
+		# Sprite group wich will be returned
+		self.positioned_sprites = pg.sprite.Group()
+		# Reset positioned sprites group 
+		if len(self.positioned_sprites) > 0:
+			self.positioned_sprites.empty()
+
+		# Position of last element
+		last_pos = deque([initial_x, initial_y], 2)
+		# Setting up initial position for collection elements
+		for num, project in enumerate(collection):
+			# Start counting form 1
 
 
-		return collection
+
+			# Reset project position
+			project.rect.y = initial_y
+			print(str(num)," | ", str(project))
+			# Change position of current rect
+			# In case of first project we just set x, and y position to initial_x and initial_y values
+			if num == 0:
+				project.rect.y = initial_y
+				project.rect.x = initial_x
+				# Add project sprite to the group
+				self.positioned_sprites.add(project)
+
+			else:
+				project.rect.x = initial_x
+				project.rect.y = last_pos[1] + project.rect.height + spacing
+				# Keep last x position
+				last_pos.append(project.rect.x)
+				# Keep last y position
+				last_pos.append(project.rect.y)
+				# Add project sprite to the group
+				self.positioned_sprites.add(project)
+
+
+			print("last pos: ", str(last_pos))
+
+
+		print()
+
+
+			
+
+
+		return self.positioned_sprites
 
 
 	#def update(self, scroll_bar):
@@ -107,7 +153,8 @@ class SideBar(pg.sprite.Sprite):
 		# Setting up collection wich will be controlled by side bar
 		self.collection = collection
 
-
+		print()
+		print("Side bar collection: ", str(self.collection))
 		print()
 		print('Side bar created')
 
@@ -135,6 +182,11 @@ class SideBar(pg.sprite.Sprite):
 			self.is_scrollable = False
 
 		
+		# Update collection elements
+		for i in self.collection:
+			i.rect.y = self.rect.y
+
+
 		# Set bounderies 
 
 
