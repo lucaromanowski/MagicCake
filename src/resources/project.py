@@ -13,7 +13,7 @@ class NewProject(pg.sprite.Sprite):
 
 	'''
 
-	def __init__(self, name, width=300, height=40, x=WIDTH*3/4, y=HEIGHT/3):
+	def __init__(self, name, width=480, height=40, x=WIDTH*3/4, y=HEIGHT/3):
 		pg.sprite.Sprite.__init__(self)
 		self.name = name
 		self.cakes = []

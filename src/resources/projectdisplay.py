@@ -10,8 +10,8 @@ from settings import *
 
 class ScrollListDisplay(pg.sprite.Sprite):
 	'''
-	This class takes group of sprites and display them on the screen as a list 
-	of projects with scroll bar
+	This class takes group of sprites and returns a  list
+	of projects to display with scroll bar
 	'''
 
 	def __init__(self,
@@ -21,8 +21,9 @@ class ScrollListDisplay(pg.sprite.Sprite):
 				 x=WIDTH/2, 
 				 y=HEIGHT/10-10,
 				 width=500, 
-				 height=400, 
+				 height=HEIGHT - 80 , 
 				 child_left_border=10,
+				 child_right_border=10,
 				 child_top_border=10):
 
 		pg.sprite.Sprite.__init__(self)
@@ -35,7 +36,7 @@ class ScrollListDisplay(pg.sprite.Sprite):
 
 		# Data 
 		self.program = program
-		self.sprite_group = self.set_initial_position(sprite_group, child_left_border, child_top_border)
+		self.sprite_group = self.set_initial_position(sprite_group, child_left_border,child_right_border, child_top_border)
 		self.screen = screen
 
 
@@ -48,6 +49,7 @@ class ScrollListDisplay(pg.sprite.Sprite):
 	def set_initial_position(self,
 							 collection, 
 							 child_left_border,
+							 child_right_border,
 							 child_top_border,
 							 initial_x=None, 
 							 initial_y=None, 
@@ -134,6 +136,22 @@ class SideBar(pg.sprite.Sprite):
 		self.image.fill(RED)
 		self.rect = self.image.get_rect()
 		self.attached_to = attached_to
+
+		# Setting up collection wich will be controlled by side bar
+		self.collection = collection
+
+		# Scroll bar positioning
+		self.procent_position = 1
+		self.min_position_y = 50
+		self.max_position_y = 510
+		self.min_abs_position_y = 1
+		self.max_abs_position_y = self.max_position_y - self.min_position_y
+		self.max_collection_y = [i.rect.y for i in self.collection][-1]
+		self.factor = int(self.max_collection_y/self.max_position_y) 
+		print('max position y: ', str(self.max_position_y))
+		print('max abs position y: ', str(self.max_abs_position_y))
+		print('max collection y: ', str(self.max_collection_y))
+		print('factor: ', str(self.factor))
 		
 		# Checking if there is any object the SideBar is attached to.
 		# If it exists, SideBar is positioned relativly to this object.
@@ -150,8 +168,10 @@ class SideBar(pg.sprite.Sprite):
 		self.is_hover = False
 		self.is_scrollable = False # This flag helps to move side bar when coursor is of the side bar
 
-		# Setting up collection wich will be controlled by side bar
-		self.collection = collection
+		# Getting old position (in this case initial position)
+		self.old_pos = self.rect.y
+		self.change_pos = 0
+		
 
 		print()
 		print("Side bar collection: ", str(self.collection))
@@ -181,14 +201,40 @@ class SideBar(pg.sprite.Sprite):
 		else:
 			self.is_scrollable = False
 
+		# Get change of scroll bar position
+		if self.old_pos != self.rect.y:
+			self.change_pos = self.rect.y - self.old_pos
+		else:
+			self.new_pos = self.old_pos
+			self.change_pos = 0
+
+		print()
+		print('Old position: ', str(self.old_pos))
+		print('New position: ', str(self.new_pos))
+		print('Change position: ', str(self.change_pos))
+		print()
+
+		# Change position of collection elementacordingly to change and factor
+		if self.change_pos != 0:
+			for project in self.collection:
+				project.rect.y -= self.change_pos * self.factor
+
 		
-		# Update collection elements
-		for i in self.collection:
-			i.rect.y = self.rect.y
+
+		# Set boundaries relative to attached element position
+		# Top boundary
+		if self.rect.y < self.attached_to.rect.y:
+			self.rect.y = self.attached_to.rect.y
+		# Bottom boundary
+		if self.rect.bottom > self.attached_to.rect.height:
+			self.rect.bottom = self.attached_to.rect.height + self.attached_to.rect.y
+
+		#print()
+		#print("Sidebar y position: ", str(self.rect.y))
 
 
-		# Set bounderies 
-
+		# Getting old position
+		self.old_pos = self.rect.y
 
 
 			
