@@ -108,21 +108,48 @@ class ScrollListDisplay(pg.sprite.Sprite):
 			print("last pos: ", str(last_pos))
 
 
-		print()
-
-
-			
-
-
 		return self.positioned_sprites
 
 
-	#def update(self, scroll_bar):
+	def update(self):
 		'''
-		This method updates position of all collection elements accordingly with position
-		of side scroll bar.
+		This method checks if colelction elements are within boundaries of Scroll Display 
+		and updates the list of projects to display
 		'''
-		#pass
+
+		# Create group of objects to display
+		self.collection_to_display = pg.sprite.Group()
+		self.collection_to_display.empty()
+
+		# Check wich objects are within the boundaries of display box
+		for project in self.sprite_group:
+			if self.rect.bottom > project.rect.bottom > self.rect.y:
+				self.collection_to_display.add(project) 
+
+
+	def get_projects_to_display(self):
+		'''
+		This method returnd projects to display
+		'''
+		return self.collection_to_display
+
+
+	def draw_border(self, surface, color, width=40):
+		'''
+		This method draws boarder around to cover elements of collection
+		'''
+
+		# Setting top positions
+		start_pos_top = (self.rect.x, self.rect.y- 20)
+		end_pos_top = (self.rect.x + self.rect.width, self.rect.y- 20)
+		# Setting buttom positions
+		start_pos_bottom = (self.rect.x, self.rect.y + self.rect.height+20)
+		end_pos_bottom = (self.rect.x + self.rect.width, self.rect.y+self.rect.height+20)
+
+		# Draw top line
+		pg.draw.line(surface, color, start_pos_top, end_pos_top, width)
+		# Draw bottom line
+		pg.draw.line(surface, color, start_pos_bottom, end_pos_bottom, width+20)
 
 
 class SideBar(pg.sprite.Sprite):
@@ -213,11 +240,17 @@ class SideBar(pg.sprite.Sprite):
 		print('New position: ', str(self.new_pos))
 		print('Change position: ', str(self.change_pos))
 		print()
-
+		
 		# Change position of collection elementacordingly to change and factor
 		if self.change_pos != 0:
 			for project in self.collection:
 				project.rect.y -= self.change_pos * self.factor
+				print()
+				print("Pozycja y projectu w kolekcji: ", str(project.rect.y))
+
+
+
+
 
 		
 

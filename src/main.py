@@ -477,7 +477,9 @@ class MagicCake:
 		#self.scroll_list_display.draw(self.screen)
 		self.test_draw.draw(self.screen)
 		# draw projects 
-		self.scroll_list_display.sprite_group.draw(self.screen)
+		self.scroll_list_display.get_projects_to_display().draw(self.screen)
+		self.scroll_list_display.draw_border(self.screen, WHITE)
+
 
 		
 
