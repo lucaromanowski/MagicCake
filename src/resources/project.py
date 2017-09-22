@@ -26,3 +26,11 @@ class NewProject(pg.sprite.Sprite):
 		self.rect.y = y
 		print('Visual project created')
 
+	def display_text(self, surface):
+		'''
+		This method displays info about project
+		'''
+		myfont = pg.font.SysFont('Tahoma', 14)
+		textsurface = myfont.render(str(self.name), False, WHITE)
+		surface.blit(textsurface,(self.rect.x+10,self.rect.y+11))
+

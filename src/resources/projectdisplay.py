@@ -143,8 +143,8 @@ class ScrollListDisplay(pg.sprite.Sprite):
 		start_pos_top = (self.rect.x, self.rect.y- 20)
 		end_pos_top = (self.rect.x + self.rect.width, self.rect.y- 20)
 		# Setting buttom positions
-		start_pos_bottom = (self.rect.x, self.rect.y + self.rect.height+20)
-		end_pos_bottom = (self.rect.x + self.rect.width, self.rect.y+self.rect.height+20)
+		start_pos_bottom = (self.rect.x, self.rect.y + self.rect.height+30)
+		end_pos_bottom = (self.rect.x + self.rect.width, self.rect.y+self.rect.height+30)
 
 		# Draw top line
 		pg.draw.line(surface, color, start_pos_top, end_pos_top, width)
@@ -228,25 +228,49 @@ class SideBar(pg.sprite.Sprite):
 		else:
 			self.is_scrollable = False
 
-		# Get change of scroll bar position
-		if self.old_pos != self.rect.y:
-			self.change_pos = self.rect.y - self.old_pos
+
+		# Getting mouse position
+		mp = pg.mouse.get_pos()
+
+		# Checking if mouse position is within an interval of side bar min and max positions
+		if self.max_position_y > mp[1] > self.min_position_y:
+			# Get change of scroll bar position
+			if self.old_pos != self.rect.y:
+				self.change_pos = self.rect.y - self.old_pos
+			else:
+				self.new_pos = self.old_pos
+				self.change_pos = 0
 		else:
+			# When mouse is not within side bar max and mine position interval, do not allow to change projects positions
 			self.new_pos = self.old_pos
 			self.change_pos = 0
+
 
 		print()
 		print('Old position: ', str(self.old_pos))
 		print('New position: ', str(self.new_pos))
 		print('Change position: ', str(self.change_pos))
 		print()
-		
-		# Change position of collection elementacordingly to change and factor
-		if self.change_pos != 0:
-			for project in self.collection:
-				project.rect.y -= self.change_pos * self.factor
-				print()
-				print("Pozycja y projectu w kolekcji: ", str(project.rect.y))
+
+
+
+
+
+
+
+		# Check if firrst element in collection is not aout of Ymin and Ymax range
+		if 60 >= self.temp_collection[0].rect.y >= 60 - self.max_collection_y:
+			# Allow to change position of all elements
+			# Change position of collection element acordingly to change and factor
+			if self.change_pos != 0 and self.rect.y > self.min_position_y and self.rect.bottom < self.max_position_y:
+				for project in self.collection:
+					project.rect.y -= self.change_pos * self.factor
+					print()
+					print("Pozycja y projectu w kolekcji: ", str(project.rect.y))
+
+
+
+		print('self.factor: ', str(self.factor))
 
 
 
