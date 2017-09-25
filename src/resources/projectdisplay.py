@@ -230,10 +230,10 @@ class SideBar(pg.sprite.Sprite):
 
 
 		# Getting mouse position
-		mp = pg.mouse.get_pos()
+		#mp = pg.mouse.get_pos()
 
 		# Checking if mouse position is within an interval of side bar min and max positions
-		if self.max_position_y > mp[1] > self.min_position_y:
+		if self.max_position_y > pos[1] > self.min_position_y:
 			# Get change of scroll bar position
 			if self.old_pos != self.rect.y:
 				self.change_pos = self.rect.y - self.old_pos
@@ -254,19 +254,54 @@ class SideBar(pg.sprite.Sprite):
 
 
 
+		# Make collection a list instead of pygame sprite group
+		non_sprite_collction = []
+		for project in self.collection:
+			non_sprite_collction.append(project)
+
+		# Set minumum and maximum position of collection elements 
+		# accordingly to attached element position
+		max_y = self.attached_to.rect.y 
+		min_y = self.attached_to.rect.height 
+
+
+		# Allow to change position of all elements
+		# Change position of collection element acordingly to change and factor
+		if self.change_pos != 0 and self.rect.y > self.min_position_y and self.rect.bottom < self.max_position_y:
+			# Case when slider goes up
+			if self.change_pos < 0:
+				# Check if first object in collection is not higher than it can be
+				if non_sprite_collction[0].rect.y < max_y:
+				
+					for project in non_sprite_collction:
+						project.rect.y -= self.change_pos * self.factor
+			# Case when slider goes down
+			elif self.change_pos > 0:
+				# Check if last object in collection is not lower than it can be
+				if non_sprite_collction[-1].rect.y > min_y:
+					for project in non_sprite_collction:
+						project.rect.y -= self.change_pos * self.factor
+
+		# Check if position of first element in collection is not wrong
+		if non_sprite_collction[0].rect.y > max_y:
+			non_sprite_collction[0].rect.y = max_y + 2 
+
+		# Reseting sprite collection
+		self.collection.empty()
+		# Setting new sprite collection
+		for project in non_sprite_collction:
+			self.collection.add(project)
 
 
 
 
-		# Check if firrst element in collection is not aout of Ymin and Ymax range
-		if 60 >= self.temp_collection[0].rect.y >= 60 - self.max_collection_y:
-			# Allow to change position of all elements
-			# Change position of collection element acordingly to change and factor
-			if self.change_pos != 0 and self.rect.y > self.min_position_y and self.rect.bottom < self.max_position_y:
-				for project in self.collection:
-					project.rect.y -= self.change_pos * self.factor
-					print()
-					print("Pozycja y projectu w kolekcji: ", str(project.rect.y))
+		# Allow to change position of all elements
+		# Change position of collection element acordingly to change and factor
+		#if self.change_pos != 0 and self.rect.y > self.min_position_y and self.rect.bottom < self.max_position_y:
+			#for project in self.collection:
+				#project.rect.y -= self.change_pos * self.factor
+				#print()
+				#print("Pozycja y projectu w kolekcji: ", str(project.rect.y))
 
 
 
