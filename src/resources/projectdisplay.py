@@ -173,12 +173,16 @@ class SideBar(pg.sprite.Sprite):
 		self.max_position_y = 510
 		self.min_abs_position_y = 1
 		self.max_abs_position_y = self.max_position_y - self.min_position_y
-		self.max_collection_y = [i.rect.y for i in self.collection][-1]
+		self.max_collection_y = [i.rect.y for i in self.collection][-1] #This is used only to calculate factor
 		self.factor = int(self.max_collection_y/self.max_position_y) 
 		print('max position y: ', str(self.max_position_y))
 		print('max abs position y: ', str(self.max_abs_position_y))
 		print('max collection y: ', str(self.max_collection_y))
 		print('factor: ', str(self.factor))
+
+		# Collection max and min position
+		self.collection_max_y_position = self.min_position_y + 5
+		self.collection_min_y_position = [i.rect.y for i in self.collection][-1] * - 1
 		
 		# Checking if there is any object the SideBar is attached to.
 		# If it exists, SideBar is positioned relativly to this object.
@@ -251,67 +255,68 @@ class SideBar(pg.sprite.Sprite):
 		print('New position: ', str(self.new_pos))
 		print('Change position: ', str(self.change_pos))
 		print()
+		print("Collection max poss y: ", str(self.collection_max_y_position))
+		print("Collection min poss y: ", str(self.collection_min_y_position))
 
 
 
 		# Make collection a list instead of pygame sprite group
-		non_sprite_collction = []
-		for project in self.collection:
-			non_sprite_collction.append(project)
-
-		# Set minumum and maximum position of collection elements 
-		# accordingly to attached element position
-		max_y = self.attached_to.rect.y 
-		min_y = self.attached_to.rect.height 
+		non_sprite_group_collction = [project for project in self.collection]
 
 
-		# Allow to change position of all elements
-		# Change position of collection element acordingly to change and factor
-		if self.change_pos != 0 and self.rect.y > self.min_position_y and self.rect.bottom < self.max_position_y:
-			# Case when slider goes up
-			if self.change_pos < 0:
-				# Check if first object in collection is not higher than it can be
-				if non_sprite_collction[0].rect.y < max_y:
-				
-					for project in non_sprite_collction:
-						project.rect.y -= self.change_pos * self.factor
-			# Case when slider goes down
-			elif self.change_pos > 0:
-				# Check if last object in collection is not lower than it can be
-				if non_sprite_collction[-1].rect.y > min_y:
-					for project in non_sprite_collction:
-						project.rect.y -= self.change_pos * self.factor
+		# By how many % scroll bar position change?
+		proc_change = int(self.change_pos/460 * 100)
+		print()
+		print("Side bar changed by: ", str(proc_change), " %")
 
-		# Check if position of first element in collection is not wrong
-		if non_sprite_collction[0].rect.y > max_y:
-			non_sprite_collction[0].rect.y = max_y + 2 
-
-		# Reseting sprite collection
-		self.collection.empty()
-		# Setting new sprite collection
-		for project in non_sprite_collction:
-			self.collection.add(project)
+		# Set position of sprites
 
 
 
+		# Set first sprite to max and min position if necessery
+		# Check if position of first sprite is greater than Ymax
+		if non_sprite_group_collction[0].rect.y > self.collection_max_y_position:
+			# Set first sprite y position to max position
+			non_sprite_group_collction[0].rect.y = self.collection_max_y_position
+		
+		# Check if position of first sprite is smaller than  Ymin
+		elif non_sprite_group_collction[0].rect.y < self.collection_min_y_position:
+			# Set  first sprite y position to min position
+			non_sprite_group_collction[0].rect.y = self.collection_min_y_position
 
-		# Allow to change position of all elements
-		# Change position of collection element acordingly to change and factor
-		#if self.change_pos != 0 and self.rect.y > self.min_position_y and self.rect.bottom < self.max_position_y:
-			#for project in self.collection:
-				#project.rect.y -= self.change_pos * self.factor
-				#print()
-				#print("Pozycja y projectu w kolekcji: ", str(project.rect.y))
+		# Change position of first sprite acordlingly to side bar change
+		# Check if scroll bar moved up
+		if self.change_pos < 0:
+			# Change position of first element in sprite group
+			non_sprite_group_collction[0].rect.y -= proc_change/100 * sum(sprite.rect.height for sprite in non_sprite_group_collction) 
+		# Check if scroll bar moved down
+		elif self.change_pos > 0:
+			# Change position of first element in sprite group
+			non_sprite_group_collction[0].rect.y -= proc_change/100 * sum(sprite.rect.height for sprite in non_sprite_group_collction) 
+
+
+		print()
+		print("Position y of first element: ", str(non_sprite_group_collction[0].rect.y))
 
 
 
-		print('self.factor: ', str(self.factor))
-
-
-
-
+		# Position all elements in collection accordingly to first element
+		for num, project in enumerate(non_sprite_group_collction):
+			# Do nothing to first element
+			if num == 0:
+				continue
+			else:
+				# Position element below precedent element + spaceing
+				non_sprite_group_collction[num].rect.y = non_sprite_group_collction[num-1].rect.y + non_sprite_group_collction[num].rect.height + 5 
 
 		
+		# Safety --> if sidebar reaches its min or max position, position first element of collection in max or min position
+		if self.rect.y == self.min_position_y:
+			non_sprite_group_collction[0] = self.collection_max_y_position
+		elif self.rect.y == self.max_position_y:
+			non_sprite_group_collction[0] = self.collection_min_y_position
+		
+
 
 		# Set boundaries relative to attached element position
 		# Top boundary
