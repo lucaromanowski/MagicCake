@@ -39,6 +39,8 @@ class ScrollListDisplay(pg.sprite.Sprite):
 		self.sprite_group = self.set_initial_position(sprite_group, child_left_border,child_right_border, child_top_border)
 		self.screen = screen
 
+		self.selected_project = deque([], 1)
+
 
 
 		print()
@@ -315,9 +317,8 @@ class SideBar(pg.sprite.Sprite):
 			non_sprite_group_collction[0] = self.collection_max_y_position
 		elif self.rect.y == self.max_position_y:
 			non_sprite_group_collction[0] = self.collection_min_y_position
+
 		
-
-
 		# Set boundaries relative to attached element position
 		# Top boundary
 		if self.rect.y < self.attached_to.rect.y:
@@ -325,10 +326,6 @@ class SideBar(pg.sprite.Sprite):
 		# Bottom boundary
 		if self.rect.bottom > self.attached_to.rect.height:
 			self.rect.bottom = self.attached_to.rect.height + self.attached_to.rect.y
-
-		#print()
-		#print("Sidebar y position: ", str(self.rect.y))
-
 
 		# Getting old position
 		self.old_pos = self.rect.y

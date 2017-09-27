@@ -78,8 +78,12 @@ class MagicCake:
 		# List object for displaying collections (Cakes, Ingredients)
 		self.list = List(self)
 		
-		# ingredients list
+		# Ingredients list
 		self.ingredients_collection = List(self)		
+
+		# # Screen selector
+		self.screens = ['start_screen', 'create_screen', 'main_screen']
+		self.current_screen = self.screens[0]
 
 
 
@@ -154,7 +158,7 @@ class MagicCake:
 		# ----------------- Running the main program
 
 		# Start screen
-		self.start_screen()
+		#self.start_screen()
 
 		# Creator screen
 		#self.project_creator_screen()
@@ -166,6 +170,15 @@ class MagicCake:
 
 
 	def run(self):
+		self.running = True
+		# Run proper screen
+		# Start screnn
+		if self.current_screen == 'start_screen':
+			self.start_screen()
+		# Create Screen
+		#elif self.current_screen == 'create_screen'
+
+		# Main Screen
 		self.running = True
 		while self.running:
 			self.clock.tick(FPS)
@@ -393,6 +406,9 @@ class MagicCake:
 		'''
 		Checking for events in start screen
 		'''
+		# Get mouse position
+		self.mouse_pos = pg.mouse.get_pos()
+
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
 				self.start_running= False
@@ -412,6 +428,28 @@ class MagicCake:
 					# Program exits start screen and goes to next screen (project creator screen)
 					#self.start_running = False
 					pass
+				#print('click')
+
+				# Check if we clicked on project
+				for project in self.scroll_list_display.get_projects_to_display():
+					# Check for collisions with mouse
+					if  project.rect.x + project.rect.width > self.mouse_pos[0] > project.rect.x and project.rect.y+ project.rect.height > self.mouse_pos[1] > project.rect.y:
+						# Deselect all projects
+						#for project in self.scroll_list_display.get_projects_to_display():
+							#if project.is_selected == True:
+								#project.is_selected = False
+								
+								#break
+						# Select project
+						project.is_selected = True
+						self.scroll_list_display.selected_project.append(project)
+						print('Click')
+						
+					
+					#break
+
+						#print()	 
+						#print('Project clicked: ', str(project))
 			
 		
 					
@@ -419,8 +457,7 @@ class MagicCake:
 
 
 
-		# Get mouse position
-		self.mouse_pos = pg.mouse.get_pos()
+		
 		#print(self.mouse_pos) 
 
 	def start_update(self):
@@ -438,6 +475,13 @@ class MagicCake:
 		# scroll display lis
 		#self.scroll_list_display.draw(self.screen)
 		self.test_draw.update()
+
+		# Update projects
+		self.scroll_list_display.get_projects_to_display().update()
+
+		# Fill curently selected project with color
+		if len(self.scroll_list_display.selected_project) > 0:
+			self.scroll_list_display.selected_project[0].image.fill(GREEN)
 
 
 
@@ -482,6 +526,7 @@ class MagicCake:
 		# draw projects name
 		for i in self.scroll_list_display.get_projects_to_display():
 			i.display_text(self.screen)
+
 
 
 
