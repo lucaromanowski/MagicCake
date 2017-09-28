@@ -188,7 +188,11 @@ def check_for_keyboard_input(magiccake):
 
 	for event in pg.event.get():
 			if event.type == pg.QUIT:
+				magiccake.screen_number = 2
+				magiccake.start_running = False
 				magiccake.creator_running= False
+				magiccake.start_running = False
+				
 			
 				
 			# Check for keyboard for typing letters

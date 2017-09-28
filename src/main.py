@@ -31,7 +31,7 @@ class MagicCake:
 		self.is_creating = False
 
 		# Projects management
-		self.current_project = 'Test cureeent project should be set to None'
+		#self.current_project = 'Test cureeent project should be set to None'
 
 
 	def new(self):
@@ -81,9 +81,11 @@ class MagicCake:
 		# Ingredients list
 		self.ingredients_collection = List(self)		
 
+
 		# # Screen selector
+		self.screen_number = 0
 		self.screens = ['start_screen', 'create_screen', 'main_screen']
-		self.current_screen = self.screens[0]
+		self.current_screen = self.screens[self.screen_number]
 
 
 
@@ -170,21 +172,30 @@ class MagicCake:
 
 
 	def run(self):
-		self.running = True
-		# Run proper screen
-		# Start screnn
-		if self.current_screen == 'start_screen':
-			self.start_screen()
-		# Create Screen
-		#elif self.current_screen == 'create_screen'
+		# Loop that will controll all loops (screens)
+		self.control_loop = True
+		while self.control_loop:
+			# Start Screen
+			if self.current_screen == "main_screen":
+				# Main Screen
+				self.running = True
+				while self.running:
+					self.clock.tick(FPS)
+					self.events()
+					self.update()
+					self.draw()
+					print("Current Screen: ", str(self.current_screen))
 
-		# Main Screen
-		self.running = True
-		while self.running:
-			self.clock.tick(FPS)
-			self.events()
-			self.update()
-			self.draw()
+			# Start Screen	
+			elif self.current_screen == "start_screen":
+				self.start_screen()
+				#print("Current Screen: ", str(self.current_screen))
+			# Create screen
+			elif self.current_screen == "create_screen":
+				self.project_creator_screen()
+				#print("Current Screen: ", str(self.current_screen))
+
+
 
 
 	def events(self):
@@ -397,10 +408,11 @@ class MagicCake:
 
 			# Draw
 			self.start_draw()
+			print("Current Screen: ", str(self.current_screen))
 
 		# When you click create button precedent loop ends
 		# Creator screen
-		self.project_creator_screen()
+		#self.project_creator_screen()
 
 	def start_events(self):
 		'''
@@ -412,6 +424,7 @@ class MagicCake:
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
 				self.start_running= False
+				self.current_screen = 2
 				
 			# Check for keyboard for typing letters ---------------------- TYPING LETTERS
 			if event.type == pg.KEYDOWN:
@@ -651,6 +664,8 @@ class MagicCake:
 
 			# Draw
 			self.creator_draw()
+			print("Current Screen: ", str(self.current_screen))
+
 
 		# Sets control variable to false
 		self.is_creating = False

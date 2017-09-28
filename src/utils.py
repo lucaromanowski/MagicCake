@@ -31,6 +31,8 @@ def check_for_events(magiccake):
 	for event in pg.event.get():
 			if event.type == pg.QUIT:
 				magiccake.running= False
+				# Quit controll loop
+				magiccake.control_loop = False
 				
 			# Check for keyboard for typing letters
 			if event.type == pg.KEYDOWN:
