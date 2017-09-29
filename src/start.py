@@ -27,6 +27,7 @@ class Start(pg.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.x = x
 		self.rect.y = y
+		self.name = 'start'
 
 		# Status
 		self.is_highlighted = False
@@ -89,6 +90,7 @@ class Create(pg.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.x = x
 		self.rect.y = y
+		self.name = 'create'
 
 		# Status
 		self.is_highlighted = False

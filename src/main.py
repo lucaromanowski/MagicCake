@@ -42,8 +42,6 @@ class MagicCake:
 		self.scrollers = pg.sprite.Group()
 		self.arrows = pg.sprite.Group()
 
-		
-
 		# Create objects
 		self.input = Input(self)
 		self.all_sprites.add(self.input)
@@ -79,7 +77,10 @@ class MagicCake:
 		self.list = List(self)
 		
 		# Ingredients list
-		self.ingredients_collection = List(self)		
+		self.ingredients_collection = List(self)
+
+		# Current project
+		self.current_project = None		
 
 
 		# # Screen selector
@@ -92,61 +93,61 @@ class MagicCake:
 
 		#--------------------------------TEST--------------------------------------------------------------------
 		### Create cake with ingredient with protein
-		self.test_cake = Cake(self, 'test cake')
-		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient', WIDTH + 20, 20, protein=20))
-		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2', WIDTH + 20, 60, protein=13))
-		self.all_cakes.add(self.test_cake)
+		#self.test_cake = Cake(self, 'test cake')
+		#self.test_cake.ingredients.add(Ingredient(self, 'test ingredient', WIDTH + 20, 20, protein=20))
+		#self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2', WIDTH + 20, 60, protein=13))
+		#self.all_cakes.add(self.test_cake)
 
 
 		#--------------------SAVING MODULE TESTS
-		self.mem = Memory(self)
-		self.mem.save(self.test_cake)
-		loaded = self.mem.load('save.obj')
-		self.cake1 = self.mem.recreate_obj(loaded)
+		#self.mem = Memory(self)
+		#self.mem.save(self.test_cake)
+		#loaded = self.mem.load('save.obj')
+		#self.cake1 = self.mem.recreate_obj(loaded)
 
 
-		self.all_cakes.add(self.cake1)
+		#self.all_cakes.add(self.cake1)
 
 
 		#TEST -------------------------------------SAVING MODULE 2 TESTS---------------------------------TEST
 
 		print('TESTY PROJECT CREATORA--------------')
 
-		### Create cake with ingredient with protein
-		print()
-		print('Project creating test part --->')
-		self.test_cake = Cake(self, 'test cake save module')
-		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient save mod', WIDTH + 20, 20, protein=20))
-		self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2, save mod', WIDTH + 20, 60, protein=13))
-		self.all_cakes.add(self.test_cake)
+		# ### Create cake with ingredient with protein
+		# print()
+		# print('Project creating test part --->')
+		# self.test_cake = Cake(self, 'test cake save module')
+		# self.test_cake.ingredients.add(Ingredient(self, 'test ingredient save mod', WIDTH + 20, 20, protein=20))
+		# self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2, save mod', WIDTH + 20, 60, protein=13))
+		# self.all_cakes.add(self.test_cake)
 
 
-		self.lop = ListOfProjects()
+		# self.lop = ListOfProjects()
 
-		# Creating project
-		self.pc = ProjectCreator()
-		self.tp = self.pc.create_project('first project')
-		self.lop.projects.append(self.tp)
-		self.current_project = self.tp
+		# # Creating project
+		# self.pc = ProjectCreator()
+		# self.tp = self.pc.create_project('first project')
+		# self.lop.projects.append(self.tp)
+		# #self.current_project = self.tp
 
-		# Set all cakes to current project cakes
-		self.current_project.cakes = self.all_cakes
-		print('ciasta obecnego projektu: ', str(self.current_project.cakes))
+		# # Set all cakes to current project cakes
+		# #self.current_project.cakes = self.all_cakes
+		# #print('ciasta obecnego projektu: ', str(self.current_project.cakes))
 
-		#self.lop.projects.append(ProjectCreator().create_project('first project'))
-		print()
-		print('Project saving tests --->')
-		print(str(self.lop.projects))
-		self.ps = ProjectSaver(self)
-		self.ps.save()
+		# #self.lop.projects.append(ProjectCreator().create_project('first project'))
+		# print()
+		# print('Project saving tests --->')
+		# print(str(self.lop.projects))
+		# self.ps = ProjectSaver(self)
+		# #self.ps.save()
 
 
-		# ---LOADING PART
-		print()
-		print('Project loader tests --->')
-		self.pl = ProjectLoader(self)
-		self.pl.load_all_projects()
-		self.pl.load_all_projects('/blabla/ble')
+		# # ---LOADING PART
+		# print()
+		# print('Project loader tests --->')
+		# self.pl = ProjectLoader(self)
+		# self.pl.load_all_projects()
+		# #self.pl.load_all_projects('/blabla/ble')
 
 
 
@@ -187,13 +188,16 @@ class MagicCake:
 					print("Current Screen: ", str(self.current_screen))
 
 			# Start Screen	
-			elif self.current_screen == "start_screen":
+			if self.current_screen == "start_screen":
 				self.start_screen()
 				#print("Current Screen: ", str(self.current_screen))
 			# Create screen
-			elif self.current_screen == "create_screen":
+			if self.current_screen == "create_screen":
 				self.project_creator_screen()
 				#print("Current Screen: ", str(self.current_screen))
+
+			# Update current scrren number (if not, the screen will not change)
+			self.current_screen = self.screens[self.screen_number]
 
 
 
@@ -421,10 +425,14 @@ class MagicCake:
 		# Get mouse position
 		self.mouse_pos = pg.mouse.get_pos()
 
+		print('screen number: ', str(self.screen_number))
+
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
 				self.start_running= False
-				self.current_screen = 2
+				self.control_loop = False
+				#self.start_running= False
+				#self.current_screen = 2
 				
 			# Check for keyboard for typing letters ---------------------- TYPING LETTERS
 			if event.type == pg.KEYDOWN:
@@ -435,13 +443,20 @@ class MagicCake:
 				# chceck for hits with menu items
 				hits = pg.sprite.spritecollide(self.start_mouse, self.all_start_sprites, False)
 				if hits:
-					# Case 1: Create button
-					# Starts project creation procedure
-					#hits[0].click(self)
-					# Program exits start screen and goes to next screen (project creator screen)
-					#self.start_running = False
-					pass
-				#print('click')
+					# Check witch button was pressed 
+					# Case 1 - Load project button
+					if hits[0].name == 'start':
+						# Pass the selected project to main screen project
+						# If project was selected load it, and go to main screen
+						if len(self.scroll_list_display.selected_project) > 0:
+							self.current_project =  self.scroll_list_display.selected_project[0]
+							# Set new screen number to number of main screen
+							self.screen_number = 2
+							# Exit start screen
+							self.start_running = False
+						
+					
+				
 
 				# Check if we clicked on project
 				for project in self.scroll_list_display.get_projects_to_display():
