@@ -141,7 +141,6 @@ class ProjectStarter(object):
 			pg.display.update()
 
 
-
 class CreateProjectButton(pg.sprite.Sprite):
 	'''
 	Button that creats new project
@@ -157,20 +156,54 @@ class CreateProjectButton(pg.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.x = WIDTH - self.rect.width - 20
 		self.rect.y = HEIGHT - self.rect.height - 20
+		self.name = "project_create_button"
+		self.is_creatable = False
+
 
 	def update(self):
-
 		# Check for collision with mouse
 		hits = pg.sprite.collide_rect(self, self.program.creator_mouse)
-		if hits:
-			# Change background color on mouse over
-			self.image.fill(PINKY)
-			self.is_highlighted = True
-
+		# In case user didn't type anything as project name, display button as black and white
+		if len(self.program.input.input_list) == 0:
+			if hits:
+				self.image.fill(LIGHT_GREY)
+			else:
+				self.image.fill(DARK_GREY)
 		else:
-			# In not mouse over
-			self.image.fill(LILA)
-			self.is_highlighted = False
+			# Case when user typed anything as project name
+			if hits:
+				# In case user didn't type anything as project name, display button as black and white
+				if len(self.program.input.input_list) == 0:
+					self.image.fill(LIGHT_GREY)
+				else:
+					# Change background color on mouse over
+					self.image.fill(PINKY)
+					self.is_highlighted = True
+			else:
+				# In not mouse over
+				self.image.fill(LILA)
+				self.is_highlighted = False
+
+
+	def draw_text(self, surface):
+		'''
+		This method displays text on the button
+		'''
+		
+		# Drawing cakes name
+		# Drawing text inside of self surface
+		# Select the font to use, size, bold, italics
+		font = pg.font.SysFont('Courier', 22, False, False)
+		 
+		# Render the text. "True" means anti-aliased text.
+		# Black is the color. The variable BLACK was defined
+		# above as a list of [0, 0, 0]
+		# Note: This line creates an image of the letters,
+		# but does not put it on the screen yet.
+		text = font.render("Create", True, WHITE)
+		 
+		# Put the image of the text on the screen at 250x250
+		surface.blit(text, [self.rect.x + 60, self.rect.y + 13])
 
 
 
@@ -316,8 +349,9 @@ def check_for_keyboard_input(magiccake):
 			# Check for mouse clicking
 			if event.type == pg.MOUSEBUTTONUP:
 				
-				# Checks for klicking on Paginator objects
-				pass
+				hits = pg.sprite.spritecollide(magiccake.creator_mouse, magiccake.all_creator_sprites, False)
+				if hits:
+					print("CLick button")
 
 
 				

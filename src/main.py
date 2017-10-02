@@ -88,6 +88,9 @@ class MagicCake:
 		self.screens = ['start_screen', 'create_screen', 'main_screen']
 		self.current_screen = self.screens[self.screen_number]
 
+		
+
+
 
 
 
@@ -178,20 +181,26 @@ class MagicCake:
 		while self.control_loop:
 			# Start Screen
 			if self.current_screen == "main_screen":
-				# Main Screen
+				# Clear all cakes group
+				self.all_cakes.empty()
+				# Load project cakes for main screen
+				for cake in self.current_project.cakes:
+					self.all_cakes.add(cake)
+					
+				# Run main Screen
 				self.running = True
 				while self.running:
 					self.clock.tick(FPS)
 					self.events()
 					self.update()
 					self.draw()
-					print("Current Screen: ", str(self.current_screen))
+					#print("Current Screen: ", str(self.current_screen))
 
-			# Start Screen	
+			# Run start Screen	
 			if self.current_screen == "start_screen":
 				self.start_screen()
 				#print("Current Screen: ", str(self.current_screen))
-			# Create screen
+			# Run create screen
 			if self.current_screen == "create_screen":
 				self.project_creator_screen()
 				#print("Current Screen: ", str(self.current_screen))
@@ -208,10 +217,12 @@ class MagicCake:
 
 		# Mouse position
 		self.mouse_pos = pg.mouse.get_pos()
-		print(self.mouse_pos)
+		#print(self.mouse_pos)
 
 
-	def update(self):	
+	def update(self):	 
+
+
 		self.all_sprites.update()
 
 		# Cake list handling objects one under another	
@@ -263,7 +274,7 @@ class MagicCake:
 			# Checkig wich cake is active
 			for cake in self.all_cakes:
 				if cake.is_active:
-					print('Cake is Active: ' + str(cake.name))
+					#print('Cake is Active: ' + str(cake.name))
 					# Check if there are any ingredients to deal with
 					if len(cake.ingredients) > 0:
 						# Selecting limited amount of objects
@@ -275,9 +286,9 @@ class MagicCake:
 						self.ingredients_collection = List(self)
 
 
-						print('Cake ingredients: ' + str(cake.ingredients))
-						print('Selected objects: ' + str(self.ingredients_collection))
-						print('Items out of list: ' + str(cake.ingredients))
+						# print('Cake ingredients: ' + str(cake.ingredients))
+						# print('Selected objects: ' + str(self.ingredients_collection))
+						# print('Items out of list: ' + str(cake.ingredients))
 
 		# Ingredients button bug fix
 		# Fix bug for ingredients button Ugly
@@ -412,7 +423,7 @@ class MagicCake:
 
 			# Draw
 			self.start_draw()
-			print("Current Screen: ", str(self.current_screen))
+			
 
 		# When you click create button precedent loop ends
 		# Creator screen
@@ -454,6 +465,15 @@ class MagicCake:
 							self.screen_number = 2
 							# Exit start screen
 							self.start_running = False
+					# Case 2 - Create button
+					if hits[0].name == 'create':
+						print("Create button was clicked")
+						# Set new screen number to number of create screen
+						self.screen_number = 1
+						# Exit start screen
+						self.start_running = False
+
+
 						
 					
 				
@@ -679,7 +699,7 @@ class MagicCake:
 
 			# Draw
 			self.creator_draw()
-			print("Current Screen: ", str(self.current_screen))
+			#print("Current Screen: ", str(self.current_screen))
 
 
 		# Sets control variable to false
@@ -751,6 +771,12 @@ class MagicCake:
 
 		# Draw mouse
 		self.creator_mouse_group.draw(self.screen)
+
+		# Draw create button text
+		try: 
+			self.cpbutton.draw_text(self.screen)
+		except:
+			pass
 
 
 		
