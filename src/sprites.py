@@ -1131,10 +1131,6 @@ class List(pg.sprite.Sprite):
 		return self.buttons
 
 
-
-
-
-
 class Button(pg.sprite.Sprite):
 	'''
 	Button class that handels clicking and returns True
@@ -1173,20 +1169,12 @@ class Button(pg.sprite.Sprite):
 			self.vel = vec(0, 0)
 			self.acc = vec(0, 0)
 			self.pos.x = self.boundry_left + 1
-			
-		
+				
 		# Right
 		if self.pos.x >= self.boundry_right:
 			self.vel = vec(0, 0)
 			self.acc = vec(0, 0)
 			self.pos.x = self.boundry_right
-
-
-
-			
-
-
-
 
 		# Check for collision with mouse
 		hits = pg.sprite.collide_rect(self, self.MagicCake.mouse)

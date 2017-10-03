@@ -8,6 +8,7 @@ from settings import *
 from sprites import *
 
 
+
 class Project(pg.sprite.Sprite):
 	'''
 	This is object to represent information of a project
@@ -221,10 +222,10 @@ def check_for_keyboard_input(magiccake):
 
 	for event in pg.event.get():
 			if event.type == pg.QUIT:
-				magiccake.screen_number = 2
+				magiccake.screen_number = 0
 				magiccake.start_running = False
-				magiccake.creator_running= False
-				magiccake.start_running = False
+				magiccake.creator_running = False
+				magiccake.control_loop = False
 				
 			
 				
@@ -314,45 +315,58 @@ def check_for_keyboard_input(magiccake):
 						magiccake.input.input_list.pop() 
 
 				# Making cake after user presses enter key
-				if event.key == pg.K_RETURN  :
-					# Check if there is a name for project
-					if len(magiccake.input.input_list) > 0:
+				# if event.key == pg.K_RETURN  :
+				# 	# Check if there is a name for project
+				# 	if len(magiccake.input.input_list) > 0:
 						
-						# Check if we are in project creating mode
-						if magiccake.is_creating:
+				# 		# Check if we are in project creating mode
+				# 		if magiccake.is_creating:
 							
-							# Create project
-							p = Project(magiccake, 0, 0, 200, 40, BLACK, magiccake.input.input_str )
+				# 			# Create project
+				# 			p = Project(magiccake, 0, 0, 200, 40, BLACK, magiccake.input.input_str )
 
-							# Clear current project (only one current project may be in a group)
-							magiccake.current_project.empty()
-							print('Current project group cleared')
+				# 			# Clear current project (only one current project may be in a group)
+				# 			try:
+				# 				magiccake.current_project.empty()
+				# 				print('Current project group cleared')
+				# 			except:
+				# 				pass
+				# 			# Setting up new project as current project in our program
+				# 			magiccake.current_project.add(p)
+				# 			print('current project set up')
 
-							# Setting up new project as current project in our program
-							magiccake.current_project.add(p)
-							print('current project set up')
 
 
+				# 			# Clear input
+				# 			magiccake.input.clear()
 
-							# Clear input
-							magiccake.input.clear()
-
-							# Exit creator
-							magiccake.creator_running = False
+				# 			# Exit creator
+				# 			magiccake.creator_running = False
 
 							
-
-
-
-
 			
 			# Check for mouse clicking
 			if event.type == pg.MOUSEBUTTONUP:
 				
 				hits = pg.sprite.spritecollide(magiccake.creator_mouse, magiccake.all_creator_sprites, False)
+				
 				if hits:
-					print("CLick button")
+					# Check if we clicked create button
+					if hits[0].name == "project_create_button":
+						# Allow to create new project if user typed anything
+						if len(magiccake.input.input_list) > 0:
 
+							# Create project and set it as current project
+							magiccake.current_project = magiccake.project_creator.create_project(str(magiccake.input.input_str))
+
+							# Clear input
+							magiccake.input.clear()
+
+							# Set screen to main
+							magiccake.screen_number = 2
+
+							# Exit create screen
+							magiccake.creator_running = False
 
 				
 

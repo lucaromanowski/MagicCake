@@ -36,6 +36,7 @@ class NewProject(pg.sprite.Sprite):
 		textsurface = myfont.render(str(self.name), False, WHITE)
 		surface.blit(textsurface,(self.rect.x+10,self.rect.y+11))
 
+
 	def update(self):
 		# Check for collisions with mouse
 		mp = pg.mouse.get_pos()

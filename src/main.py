@@ -88,6 +88,15 @@ class MagicCake:
 		self.screens = ['start_screen', 'create_screen', 'main_screen']
 		self.current_screen = self.screens[self.screen_number]
 
+
+		### Load/Save/Create Module
+		# Create Project (project creator object)
+		self.project_creator = ProjectCreator()
+
+		# Save Project (project saver)
+		self.project_saver = ProjectSaver(self)
+		
+
 		
 
 
@@ -456,22 +465,25 @@ class MagicCake:
 				if hits:
 					# Check witch button was pressed 
 					# Case 1 - Load project button
-					if hits[0].name == 'start':
-						# Pass the selected project to main screen project
-						# If project was selected load it, and go to main screen
-						if len(self.scroll_list_display.selected_project) > 0:
-							self.current_project =  self.scroll_list_display.selected_project[0]
-							# Set new screen number to number of main screen
-							self.screen_number = 2
+					try:
+						if hits[0].name == 'start':
+							# Pass the selected project to main screen project
+							# If project was selected load it, and go to main screen
+							if len(self.scroll_list_display.selected_project) > 0:
+								self.current_project =  self.scroll_list_display.selected_project[0]
+								# Set new screen number to number of main screen
+								self.screen_number = 2
+								# Exit start screen
+								self.start_running = False
+						# Case 2 - Create button
+						if hits[0].name == 'create':
+							print("Create button was clicked")
+							# Set new screen number to number of create screen
+							self.screen_number = 1
 							# Exit start screen
 							self.start_running = False
-					# Case 2 - Create button
-					if hits[0].name == 'create':
-						print("Create button was clicked")
-						# Set new screen number to number of create screen
-						self.screen_number = 1
-						# Exit start screen
-						self.start_running = False
+					except:
+						pass
 
 
 						
@@ -779,17 +791,6 @@ class MagicCake:
 			pass
 
 
-		
-
-		
-
-
-		
-
-
-
-
-
 		# Updating the screen
 		pg.display.update()
 
@@ -825,41 +826,18 @@ class MagicCake:
 		
 
 
-
-
-
 		# ----------ADDING TO THE GROUPS ----------
 
-		
 		# Adding buttons  to the groups
 		
-
 		# Adding mouse to the groups
 		self.all_creator_sprites.add(self.cpbutton)
 		self.creator_mouse_group.add(self.creator_mouse)
-
-		# Creating project
-		self.project = Project(self, WIDTH/2, HEIGHT/2, 300, 75, BLACK, 'project')
-
-		# Adding projects to the group
-		print('project creator lounched-end- default project created')
-
 
 		# Sets control variable to true
 		self.is_creating = True
 
 		
-		
-
-
-
-		
-
-
-		
-
-
-
 
 if __name__ == '__main__':
 	mc = MagicCake()
