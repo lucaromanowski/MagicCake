@@ -383,6 +383,13 @@ def check_for_events(magiccake):
 					elif button_hits2[0] == magiccake.ingredients_collection.button_down:
 						magiccake.ingredients_collection.start_index -= 1
 
+				# Check for clicking on Save object
+				save_hits = pg.sprite.collide_rect(magiccake.mouse, magiccake.save_button)
+				if save_hits:
+					# Create random text object
+					magiccake.save_button.create_text()
+					
+
 
 
 				

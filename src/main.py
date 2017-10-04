@@ -95,6 +95,9 @@ class MagicCake:
 
 		# Save Project (project saver)
 		self.project_saver = ProjectSaver(self)
+		# Save button
+		self.save_button = SaveButton(self, WIDTH/2 - 120, HEIGHT - 75)
+		self.all_sprites.add(self.save_button)
 		
 
 		
@@ -399,6 +402,10 @@ class MagicCake:
 					self.ingredients_collection.buttons_to_draw().draw(self.screen)
 				except:
 					pass
+
+		# Draw save button texts
+		for text in self.save_button.texts:
+			text.draw_text(self.screen)
 
 
 

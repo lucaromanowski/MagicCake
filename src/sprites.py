@@ -1189,9 +1189,123 @@ class Button(pg.sprite.Sprite):
 		#for event in pg.event.get():
 
 
-		
+class SaveButton(pg.sprite.Sprite):
+	'''
+	This is save button. It saves projects :-)
+	'''
+
+	def __init__(self, program, x, y, name="save_project_button"):
+		pg.sprite.Sprite.__init__(self)
+		self.program = program
+		self.images = []
+		# Load images
+		image1 = pg.image.load("images/floppyNone.png")
+		image2 = pg.image.load("images/floppyNormal.png")
+		image3 = pg.image.load("images/floppyHover.png")
+		# Add images to list
+		self.images.append(image1)
+		self.images.append(image2)
+		self.images.append(image3)
+
+		self.image_number = 0
+		self.image = self.images[self.image_number]
+		self.rect = self.image.get_rect()
+		self.rect.x = x
+		self.rect.y = y
+
+		self.name = name
+		self.text_list = ['saved', 'remembered', 'noted', 'in memoriam']
+		self.texts = pg.sprite.Group()
 
 
+	def update(self):
+		# Check for collision with mouse
+		hits = pg.sprite.collide_rect(self, self.program.mouse)
+		if hits:
+			if len(self.program.all_cakes) > 0:
+				# Set image to hover one
+				self.image_number = 2
+		else:
+
+			# Check if there is any cake to save, if not, you cant save project
+			if len(self.program.all_cakes) > 0:
+				self.image_number = 1
+			else:
+				self.image_number = 0
+
+			# Check for collision with mouse (change images)
+
+		# Set image
+		self.image = self.images[self.image_number]
+		print('Ilosc ciast w projekcie: ', str(len(self.program.current_project.cakes)))
+
+		# Update text group
+		self.texts.update()
+		# Check if it is time to kill text
+		for text in self.texts:
+			if text.y < text.end_y:
+				# Remove sprite form the group
+				self.texts.remove(text)
+		print("text objects in save button: ", str(len(self.texts)))
+
+
+	def create_text(self):
+		'''
+		This method creates random text object  wich will be displayed on the screeen above 
+		floopy disc icon 
+		'''
+		# Create text object and add it to group only when there are some cakes to save
+		if len(self.program.all_cakes) > 0:
+			text = SaveText(self.text_list[random.randint(0, len(self.text_list)-1)], 
+							self.rect.x + random.randint(-5, 5),
+							self.rect.y + random.randint(0,5))
+			self.texts.add(text)
+			print("text Created")
 
 		
+
+class SaveText(pg.sprite.Sprite):
+	'''
+	This is text object used in save button class
+	It displays random text
+	'''
+	def __init__(self, text, x, y):
+		pg.sprite.Sprite.__init__(self)
+		self.text = text
+		self.x = x
+		self.y = y
+		self.end_x = random.randint(30, 60)
+		self.end_y = self.y - random.randint(50, 70)
+		self.size = random.randint(8, 14)
+
+
+	def update(self):
+		'''
+		This method changes position
+		'''
+		self.y -= 8
+		self.size += 1
+		self.x -= 2
+
 		
+	
+
+	def draw_text(self, surface):
+		'''
+		This method displayes text on given position
+		'''
+		
+		# Drawing cakes name
+		# Drawing text inside of self surface
+		# Select the font to use, size, bold, italics
+		font = pg.font.SysFont('Courier', self.size, False, False)
+		 
+		# Render the text. "True" means anti-aliased text.
+		# Black is the color. The variable BLACK was defined
+		# above as a list of [0, 0, 0]
+		# Note: This line creates an image of the letters,
+		# but does not put it on the screen yet.
+		text = font.render(str(self.text), True, WHITE)
+		 
+		# Put the image of the text on the screen at 250x250
+		surface.blit(text, [self.x, self.y])
