@@ -143,7 +143,7 @@ def check_for_events(magiccake):
 						# Behavior for page 2 (editing ingredient properties)
 					elif magiccake.current_page == 2:
 						if magiccake.scroller.is_editable:
-							print('SCROLLER DATA UPDATED')
+							#print('SCROLLER DATA UPDATED')
 							# Put input data to scroller list (update ingredient data)
 							# Ingredient name case
 							# What item we are going to edit?
@@ -248,7 +248,7 @@ def check_for_events(magiccake):
 
 
 						#DEBUG-----------------------------------------------------------------------------------------DEBUG
-						#print("CAKE MADE")
+						##print("CAKE MADE")
 			
 			# Check for mouse clicking
 			if event.type == pg.MOUSEBUTTONUP:
@@ -360,7 +360,7 @@ def check_for_events(magiccake):
 				trash_hits = pg.sprite.collide_rect(magiccake.mouse, magiccake.trash)
 				if trash_hits:
 					magiccake.trash.show_message(active_object)
-					print('CLICK ON TRASH')
+					#print('CLICK ON TRASH')
 
 				# Clicking on buttons in List of cakes (not all_cakes list)
 				# Checking for mouse collide with button
@@ -388,7 +388,21 @@ def check_for_events(magiccake):
 				if save_hits:
 					# Create random text object
 					magiccake.save_button.create_text()
-					
+					#print()
+					#print("current_project: ", str(magiccake.current_project.name))
+					# Add update cakes in current project(clear cake list of current project and add all cakes to current project)
+					magiccake.current_project.cakes = []
+					# Adding cakes
+					for cake in magiccake.all_cakes:
+						magiccake.current_project.cakes.append(cake)
+					#print("project cakes number: ", str(len(magiccake.current_project.cakes)))
+
+
+					# Save project
+					magiccake.project_saver.save(magiccake.current_project)
+					#print("Project saved to disc")
+					#print()
+
 
 
 

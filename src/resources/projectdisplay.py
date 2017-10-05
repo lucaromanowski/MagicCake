@@ -43,9 +43,9 @@ class ScrollListDisplay(pg.sprite.Sprite):
 
 
 
-		print()
-		print('ScrollListDIsplayCreated: ', str(self.sprite_group))
-		print("RECT: ", str(self.rect))
+		#print()
+		#print('ScrollListDIsplayCreated: ', str(self.sprite_group))
+		#print("RECT: ", str(self.rect))
 	
 
 	def set_initial_position(self,
@@ -68,8 +68,8 @@ class ScrollListDisplay(pg.sprite.Sprite):
 			initial_y = self.rect.y + child_top_border
 
 
-		print()
-		print('seting up initial position for projects', "x: ",str(initial_x),"y: ", str(initial_y))
+		#print()
+		#print('seting up initial position for projects', "x: ",str(initial_x),"y: ", str(initial_y))
 		
 		# Sprite group wich will be returned
 		self.positioned_sprites = pg.sprite.Group()
@@ -87,7 +87,7 @@ class ScrollListDisplay(pg.sprite.Sprite):
 
 			# Reset project position
 			project.rect.y = initial_y
-			print(str(num)," | ", str(project))
+			#print(str(num)," | ", str(project))
 			# Change position of current rect
 			# In case of first project we just set x, and y position to initial_x and initial_y values
 			if num == 0:
@@ -107,7 +107,7 @@ class ScrollListDisplay(pg.sprite.Sprite):
 				self.positioned_sprites.add(project)
 
 
-			print("last pos: ", str(last_pos))
+			#print("last pos: ", str(last_pos))
 
 
 		return self.positioned_sprites
@@ -177,10 +177,10 @@ class SideBar(pg.sprite.Sprite):
 		self.max_abs_position_y = self.max_position_y - self.min_position_y
 		self.max_collection_y = [i.rect.y for i in self.collection][-1] #This is used only to calculate factor
 		self.factor = int(self.max_collection_y/self.max_position_y) 
-		print('max position y: ', str(self.max_position_y))
-		print('max abs position y: ', str(self.max_abs_position_y))
-		print('max collection y: ', str(self.max_collection_y))
-		print('factor: ', str(self.factor))
+		#print('max position y: ', str(self.max_position_y))
+		#print('max abs position y: ', str(self.max_abs_position_y))
+		#print('max collection y: ', str(self.max_collection_y))
+		#print('factor: ', str(self.factor))
 
 		# Collection max and min position
 		self.collection_max_y_position = self.min_position_y + 5
@@ -195,7 +195,7 @@ class SideBar(pg.sprite.Sprite):
 			self.rect.x = x
 			self.rect.y = y
 
-		print('Side bar position x: ', str(self.rect.x), ' | position y: ', str(self.rect.y))
+		#print('Side bar position x: ', str(self.rect.x), ' | position y: ', str(self.rect.y))
 
 		# Flags
 		self.is_hover = False
@@ -206,10 +206,10 @@ class SideBar(pg.sprite.Sprite):
 		self.change_pos = 0
 		
 
-		print()
-		print("Side bar collection: ", str(self.collection))
-		print()
-		print('Side bar created')
+		#print()
+		#print("Side bar collection: ", str(self.collection))
+		#print()
+		#print('Side bar created')
 
 
 	def update(self):
@@ -252,13 +252,13 @@ class SideBar(pg.sprite.Sprite):
 			self.change_pos = 0
 
 
-		print()
-		print('Old position: ', str(self.old_pos))
-		print('New position: ', str(self.new_pos))
-		print('Change position: ', str(self.change_pos))
-		print()
-		print("Collection max poss y: ", str(self.collection_max_y_position))
-		print("Collection min poss y: ", str(self.collection_min_y_position))
+		#print()
+		#print('Old position: ', str(self.old_pos))
+		#print('New position: ', str(self.new_pos))
+		#print('Change position: ', str(self.change_pos))
+		#print()
+		#print("Collection max poss y: ", str(self.collection_max_y_position))
+		#print("Collection min poss y: ", str(self.collection_min_y_position))
 
 
 
@@ -268,8 +268,8 @@ class SideBar(pg.sprite.Sprite):
 
 		# By how many % scroll bar position change?
 		proc_change = int(self.change_pos/460 * 100)
-		print()
-		print("Side bar changed by: ", str(proc_change), " %")
+		#print()
+		#print("Side bar changed by: ", str(proc_change), " %")
 
 		# Set position of sprites
 
@@ -297,8 +297,8 @@ class SideBar(pg.sprite.Sprite):
 			non_sprite_group_collction[0].rect.y -= proc_change/100 * sum(sprite.rect.height for sprite in non_sprite_group_collction) 
 
 
-		print()
-		print("Position y of first element: ", str(non_sprite_group_collction[0].rect.y))
+		#print()
+		#print("Position y of first element: ", str(non_sprite_group_collction[0].rect.y))
 
 
 

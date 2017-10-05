@@ -30,7 +30,7 @@ class Project(pg.sprite.Sprite):
 
 
 
-		print("Project created, name: ", str(self.name))
+		#print("Project created, name: ", str(self.name))
 
 
 
@@ -70,7 +70,7 @@ class ProjectCreator(pg.sprite.Sprite):
 		self.rect.x = WIDTH/2 - self.rect.width/2
 		self.rect.y = HEIGHT/2 - self.rect.height/2
 
-		print("Project creator lunched")
+		#print("Project creator lunched")
 
 
 
@@ -91,7 +91,7 @@ class ProjectStarter(object):
 		This method lounches project creator
 		'''
 		
-		print("New project started")
+		#print("New project started")
 		
 		self.pc = ProjectCreator(self.program)
 		self.creator_mouse = Mouse(self.program)
@@ -134,6 +134,7 @@ class ProjectStarter(object):
 				self.creator_mouse_group.draw(self.program.screen)
 			except:
 				print('drw exception')
+				pass
 
 
 			
@@ -357,20 +358,39 @@ def check_for_keyboard_input(magiccake):
 						if len(magiccake.input.input_list) > 0:
 
 							# Create project and set it as current project
-							magiccake.current_project = magiccake.project_creator.create_project(str(magiccake.input.input_str))
+							# Check if there is no project with name that user typed
+							exists = project_already_exists(magiccake.input.input_str, magiccake.project_loader.all_loaded_projects)
+							# Case when project alreaddy exists
+							if exists:
+								# Give a message that user need to change project name
+								print('This name already exists')
+							else:
+								# Create new project
+								magiccake.current_project = magiccake.project_creator.create_project(str(magiccake.input.input_str))
 
-							# Clear input
-							magiccake.input.clear()
+								# Clear input
+								magiccake.input.clear()
 
-							# Set screen to main
-							magiccake.screen_number = 2
+								# Set screen to main
+								magiccake.screen_number = 2
 
-							# Exit create screen
-							magiccake.creator_running = False
-
+								# Exit create screen
+								magiccake.creator_running = False
+					
 				
 
-				
-							
-				
-
+def project_already_exists(name, projects):
+	'''
+	This function chcecks if the project name of new project already exists..
+	'''
+	exists = False
+	# If exists
+	for project in projects:
+		# Check if given name is equel to at least one name of already existing projects 
+		if project.name == name:
+			exists = True
+			# There is no need to check more
+			#print("Project name match")
+			break
+	# Return True or False		
+	return exists

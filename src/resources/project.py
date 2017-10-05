@@ -46,7 +46,7 @@ class NewProject(pg.sprite.Sprite):
 		else:
 			self.image.fill(BLACK)
 			self.is_hover = False
-			print('project is hover')
+			#print('project is hover')
 
 		# Change background collor of selected element
 		#if self.is_selected:

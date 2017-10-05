@@ -52,7 +52,8 @@ class ProjectLoader(object):
 							# test append
 							self.all_temp_loaded_projects.append(proj)
 				except:
-					print("Can't load save file")
+					#print("Can't load save file")
+					pass
 
 		# Converting collection into proper project objects
 		self.all_loaded_projects =  self.convert_collection(self.all_temp_loaded_projects)

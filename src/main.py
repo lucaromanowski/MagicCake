@@ -126,11 +126,11 @@ class MagicCake:
 
 		#TEST -------------------------------------SAVING MODULE 2 TESTS---------------------------------TEST
 
-		print('TESTY PROJECT CREATORA--------------')
+		##print('TESTY PROJECT CREATORA--------------')
 
 		# ### Create cake with ingredient with protein
-		# print()
-		# print('Project creating test part --->')
+		# ##print()
+		# ##print('Project creating test part --->')
 		# self.test_cake = Cake(self, 'test cake save module')
 		# self.test_cake.ingredients.add(Ingredient(self, 'test ingredient save mod', WIDTH + 20, 20, protein=20))
 		# self.test_cake.ingredients.add(Ingredient(self, 'test ingredient2, save mod', WIDTH + 20, 60, protein=13))
@@ -147,19 +147,19 @@ class MagicCake:
 
 		# # Set all cakes to current project cakes
 		# #self.current_project.cakes = self.all_cakes
-		# #print('ciasta obecnego projektu: ', str(self.current_project.cakes))
+		# ##print('ciasta obecnego projektu: ', str(self.current_project.cakes))
 
 		# #self.lop.projects.append(ProjectCreator().create_project('first project'))
-		# print()
-		# print('Project saving tests --->')
-		# print(str(self.lop.projects))
+		# #print()
+		# #print('Project saving tests --->')
+		# #print(str(self.lop.projects))
 		# self.ps = ProjectSaver(self)
 		# #self.ps.save()
 
 
 		# # ---LOADING PART
-		# print()
-		# print('Project loader tests --->')
+		# #print()
+		# #print('Project loader tests --->')
 		# self.pl = ProjectLoader(self)
 		# self.pl.load_all_projects()
 		# #self.pl.load_all_projects('/blabla/ble')
@@ -168,7 +168,7 @@ class MagicCake:
 
 
 
-		print('KONIEC TESTOW-----------------')
+		#print('KONIEC TESTOW-----------------')
 
 		
 
@@ -206,16 +206,16 @@ class MagicCake:
 					self.events()
 					self.update()
 					self.draw()
-					#print("Current Screen: ", str(self.current_screen))
+					##print("Current Screen: ", str(self.current_screen))
 
 			# Run start Screen	
 			if self.current_screen == "start_screen":
 				self.start_screen()
-				#print("Current Screen: ", str(self.current_screen))
+				##print("Current Screen: ", str(self.current_screen))
 			# Run create screen
 			if self.current_screen == "create_screen":
 				self.project_creator_screen()
-				#print("Current Screen: ", str(self.current_screen))
+				##print("Current Screen: ", str(self.current_screen))
 
 			# Update current scrren number (if not, the screen will not change)
 			self.current_screen = self.screens[self.screen_number]
@@ -229,7 +229,7 @@ class MagicCake:
 
 		# Mouse position
 		self.mouse_pos = pg.mouse.get_pos()
-		#print(self.mouse_pos)
+		##print(self.mouse_pos)
 
 
 	def update(self):	 
@@ -286,7 +286,7 @@ class MagicCake:
 			# Checkig wich cake is active
 			for cake in self.all_cakes:
 				if cake.is_active:
-					#print('Cake is Active: ' + str(cake.name))
+					##print('Cake is Active: ' + str(cake.name))
 					# Check if there are any ingredients to deal with
 					if len(cake.ingredients) > 0:
 						# Selecting limited amount of objects
@@ -298,9 +298,9 @@ class MagicCake:
 						self.ingredients_collection = List(self)
 
 
-						# print('Cake ingredients: ' + str(cake.ingredients))
-						# print('Selected objects: ' + str(self.ingredients_collection))
-						# print('Items out of list: ' + str(cake.ingredients))
+						# #print('Cake ingredients: ' + str(cake.ingredients))
+						# #print('Selected objects: ' + str(self.ingredients_collection))
+						# #print('Items out of list: ' + str(cake.ingredients))
 
 		# Ingredients button bug fix
 		# Fix bug for ingredients button Ugly
@@ -314,7 +314,7 @@ class MagicCake:
 
 
 		#----------------------------------------------------------------------------UPDATE DEBUG
-		#print('CURRENT PAGE: ' + str(self.current_page))
+		##print('CURRENT PAGE: ' + str(self.current_page))
 
 	def draw(self):
 		# Filling with color OBLIGATORY
@@ -452,7 +452,7 @@ class MagicCake:
 		# Get mouse position
 		self.mouse_pos = pg.mouse.get_pos()
 
-		print('screen number: ', str(self.screen_number))
+		##print('screen number: ', str(self.screen_number))
 
 		for event in pg.event.get():
 			if event.type == pg.QUIT:
@@ -462,8 +462,8 @@ class MagicCake:
 				#self.current_screen = 2
 				
 			# Check for keyboard for typing letters ---------------------- TYPING LETTERS
-			if event.type == pg.KEYDOWN:
-				print('START SCREEN WORKS')
+			#if event.type == pg.KEYDOWN:
+				##print('START SCREEN WORKS')
 
 			# Checking for mouse click ------------------------------MOUSE CLICK
 			if event.type == pg.MOUSEBUTTONUP:
@@ -484,7 +484,7 @@ class MagicCake:
 								self.start_running = False
 						# Case 2 - Create button
 						if hits[0].name == 'create':
-							print("Create button was clicked")
+							##print("Create button was clicked")
 							# Set new screen number to number of create screen
 							self.screen_number = 1
 							# Exit start screen
@@ -510,13 +510,13 @@ class MagicCake:
 						# Select project
 						project.is_selected = True
 						self.scroll_list_display.selected_project.append(project)
-						print('Click')
+						##print('Click')
 						
 					
 					#break
 
-						#print()	 
-						#print('Project clicked: ', str(project))
+						##print()	 
+						##print('Project clicked: ', str(project))
 			
 		
 					
@@ -525,7 +525,7 @@ class MagicCake:
 
 
 		
-		#print(self.mouse_pos) 
+		##print(self.mouse_pos) 
 
 	def start_update(self):
 		'''
@@ -617,15 +617,15 @@ class MagicCake:
 		'''
 
 		# ------------FILE LOADER -----------
-		print()
-		print('START PRAWDZIWYCH TESTOW -------------')
-		print()
-		print('REAL project loader test START---->')
+		##print()
+		##print('START PRAWDZIWYCH TESTOW -------------')
+		##print()
+		##print('REAL project loader test START---->')
 		# Creating project loader object
 		self.project_loader = ProjectLoader(self)
 		# Loading projects from files 
 		self.project_loader.load_all_projects()
-		print('Projects loaded: ', str(self.project_loader.all_loaded_projects))
+		##print('Projects loaded: ', str(self.project_loader.all_loaded_projects))
 		
 
 		# ----------ITEM CREATION-----------
@@ -718,7 +718,7 @@ class MagicCake:
 
 			# Draw
 			self.creator_draw()
-			#print("Current Screen: ", str(self.current_screen))
+			###print("Current Screen: ", str(self.current_screen))
 
 
 		# Sets control variable to false

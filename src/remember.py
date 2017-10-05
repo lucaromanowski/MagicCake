@@ -70,11 +70,11 @@ class Memory(object):
 
 
  		# Creates cake object form loade file
-		print(str(temp_obj))
+		#print(str(temp_obj))
  		
  		# Recreate cake object
 		cake = Cake(self.program, temp_obj.cake.name)
-		print('Cake object recreated: ', str(cake.name))
+		#print('Cake object recreated: ', str(cake.name))
 
  		# Recreate ingredient object
 		for ingr in temp_obj.ingredients:
@@ -91,14 +91,14 @@ class Memory(object):
  						    ingr.price,
  						   )
  			cake.ingredients.add(i)
-		print(str(cake.ingredients))
+		#print(str(cake.ingredients))
 
  		# Combine
 
 		#Cake(temp_obj.cake.name) 
  			 
 
-		print('Cake object recreated')
+		#print('Cake object recreated')
 		return cake
 
 
