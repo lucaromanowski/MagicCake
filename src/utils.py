@@ -31,6 +31,8 @@ def check_for_events(magiccake):
 	for event in pg.event.get():
 			if event.type == pg.QUIT:
 				magiccake.running= False
+				# Quit controll loop
+				magiccake.control_loop = False
 				
 			# Check for keyboard for typing letters
 			if event.type == pg.KEYDOWN:
@@ -141,7 +143,7 @@ def check_for_events(magiccake):
 						# Behavior for page 2 (editing ingredient properties)
 					elif magiccake.current_page == 2:
 						if magiccake.scroller.is_editable:
-							print('SCROLLER DATA UPDATED')
+							#print('SCROLLER DATA UPDATED')
 							# Put input data to scroller list (update ingredient data)
 							# Ingredient name case
 							# What item we are going to edit?
@@ -246,7 +248,7 @@ def check_for_events(magiccake):
 
 
 						#DEBUG-----------------------------------------------------------------------------------------DEBUG
-						#print("CAKE MADE")
+						##print("CAKE MADE")
 			
 			# Check for mouse clicking
 			if event.type == pg.MOUSEBUTTONUP:
@@ -358,7 +360,7 @@ def check_for_events(magiccake):
 				trash_hits = pg.sprite.collide_rect(magiccake.mouse, magiccake.trash)
 				if trash_hits:
 					magiccake.trash.show_message(active_object)
-					print('CLICK ON TRASH')
+					#print('CLICK ON TRASH')
 
 				# Clicking on buttons in List of cakes (not all_cakes list)
 				# Checking for mouse collide with button
@@ -381,6 +383,27 @@ def check_for_events(magiccake):
 					elif button_hits2[0] == magiccake.ingredients_collection.button_down:
 						magiccake.ingredients_collection.start_index -= 1
 
+				# Check for clicking on Save object
+				save_hits = pg.sprite.collide_rect(magiccake.mouse, magiccake.save_button)
+				if save_hits:
+					# Create random text object
+					magiccake.save_button.create_text()
+					#print()
+					#print("current_project: ", str(magiccake.current_project.name))
+					# Add update cakes in current project(clear cake list of current project and add all cakes to current project)
+					magiccake.current_project.cakes = []
+					# Adding cakes
+					for cake in magiccake.all_cakes:
+						magiccake.current_project.cakes.append(cake)
+					#print("project cakes number: ", str(len(magiccake.current_project.cakes)))
+
+
+					# Save project
+					magiccake.project_saver.save(magiccake.current_project)
+					#print("Project saved to disc")
+					#print()
+
+
 
 
 				
@@ -402,15 +425,20 @@ def draw_input_text(magiccake,
 					is_bald=False, 
 					font_name='Courier', 
 					is_italic=False, 
-					is_aa=True,):
+					is_aa=True,
+					hint1='Wpisz nazwe ciasta',
+					hint2='Wpisz nazwe kolejnego ciasta',
+					hint3='Wpisz nazwe skladnika',
+					hint4='Wpisz nazwe kolejnego skladnika',
+					hint5='Podaj nową wartość'):
 	# Input displayed only on main page
 #if magiccake.current_page == 1:
 	# Set up for input hints
-	hint1 = 'Wpisz nazwe ciasta'
-	hint2 = 'Wpisz nazwe kolejnego ciasta'
-	hint3 = 'Wpisz nazwe skladnika'
-	hint4 = 'Wpisz nazwe kolejnego skladnika'
-	hint5 = 'Podaj nową wartość'
+	hint1 = hint1
+	hint2 = hint2
+	hint3 = hint3
+	hint4 = hint4
+	hint5 = hint5
 	COL = color
 	text = text
 	# Hint before entering first cake name

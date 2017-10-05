@@ -27,6 +27,7 @@ class Start(pg.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.x = x
 		self.rect.y = y
+		self.name = 'start'
 
 		# Status
 		self.is_highlighted = False
@@ -63,6 +64,15 @@ class Start(pg.sprite.Sprite):
 		 
 		# Put the image of the text on the screen at 250x250
 		surface.blit(text, [self.rect.x + 3, self.rect.y + 10])
+
+	def click(self):
+		'''
+		Instruction after clicking on button
+		'''
+
+		# Start project creator
+		#start_new_project()
+		pass
 			
 
 
@@ -80,6 +90,7 @@ class Create(pg.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.x = x
 		self.rect.y = y
+		self.name = 'create'
 
 		# Status
 		self.is_highlighted = False
@@ -121,3 +132,18 @@ class Create(pg.sprite.Sprite):
 		 
 		# Put the image of the text on the screen at 250x250
 		surface.blit(text, [self.rect.x + 3, self.rect.y + 10])
+
+
+	def click(self, program):
+		'''
+		Instruction after clicking on button
+		'''
+
+		# Start project creator
+		self.ps = ProjectStarter(program)
+		self.ps.start_new_project()
+		
+
+
+
+

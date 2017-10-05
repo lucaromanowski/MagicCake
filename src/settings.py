@@ -1,3 +1,5 @@
+import os
+
 # Screen settings
 WIDTH = 1100
 HEIGHT = 600
@@ -21,6 +23,9 @@ LAVENDER = (230, 230, 250)
 BACKGROUND_COLOR = (168, 168, 168)
 HINT_COLOR = (173, 173, 173)
 
+DARK_GREY = (114, 114, 114)
+LIGHT_GREY = (198, 198, 198)
+
 # CakeGeneral Settings
 CG_WIDTH = 0
 CG_HEIGHT = 0
@@ -33,3 +38,7 @@ PINKY = (236,140,144)
 
 LOAD_BUTTON_TEXT = "Zaladuj"
 CREATE_BUTTON_TEXT = "Nowy project"
+
+
+# Saving and Loading 
+SAVE_FOLDER = 'save'

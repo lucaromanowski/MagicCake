@@ -46,6 +46,12 @@ class Input(pg.sprite.Sprite):
 		#print(self.input_list)
 		#print(len(self.input_list))
 		#print(self.coursor)
+	
+	def clear(self):
+		'''
+		This method clears input
+		'''
+		self.input_list = []
 
 
 class Cake(pg.sprite.Sprite):
@@ -84,7 +90,7 @@ class Cake(pg.sprite.Sprite):
 		protein = 0
 		for ingr in self.ingredients:
 			protein += ingr.protein
-			#print('Protein: ' + str(self.protein))
+			##print('Protein: ' + str(self.protein))
 		self.protein = protein
 
 	def count_macros(self):
@@ -337,7 +343,7 @@ class Ingredient(pg.sprite.Sprite):
 		except ZeroDivisionError:
 			pass
 
-		print('SELECTED INGREDIENT STATUS: ' + str(self.is_active))
+		#print('SELECTED INGREDIENT STATUS: ' + str(self.is_active))
 
 	def move(self, dir):
 		if dir == 'left':
@@ -369,7 +375,7 @@ class Ingredient(pg.sprite.Sprite):
 
 	def show_details(self):
 		if self.is_highlighted or self.is_active:
-			print("details of INGREDIENTS")
+			#print("details of INGREDIENTS")
 			# Drawing ingredient name on rect
 			font = pg.font.SysFont('Courier', 16, False, False)
 
@@ -639,7 +645,7 @@ class Scroller(pg.sprite.Sprite):
 
 		#print('Cake Scroll list: ' + str(self.list))
 		#print('Scroll status:  ' + str(self.is_active))
-		print('IS EDITABLE _________________-:  ' + str(self.is_editable))
+		#print('IS EDITABLE _________________-:  ' + str(self.is_editable))
 	
 
 	def setItemNumber(self, arrow):
@@ -824,11 +830,11 @@ class Trash(pg.sprite.Sprite):
 		# Set message
 		if self.MagicCake.current_page == 1:
 			self.message = 'Czy chcesz skasowac {}'.format(obj.name)
-			print (self.message)
+			#print (self.message)
 		elif self.MagicCake.current_page == 2:
-			print(str(obj) + ' <------------object podany do trasha')
+			#print(str(obj) + ' <------------object podany do trasha')
 			self.message = 'Czy chcesz skasowac {}'.format(obj.name)
-			print (self.message)
+			#print (self.message)
 		#self.obj = obj
 
 		self.is_active = True
@@ -837,9 +843,9 @@ class Trash(pg.sprite.Sprite):
 			msg = Message(self.MagicCake, self.message)
 			# Waiting for confirmation
 			answer = msg.wait()
-			print('Odpowiedz: ' + str(answer))
+			#print('Odpowiedz: ' + str(answer))
 			if answer:
-				print ('OBJEKT DO SKASOWANIA: ' + str(obj))
+				#print ('OBJEKT DO SKASOWANIA: ' + str(obj))
 				obj.kill()
 			msg.kill()
 			
@@ -884,7 +890,7 @@ class Message(pg.sprite.Sprite):
 		# Check for mous position
 
 		self.mouse_pos = pg.mouse.get_pos()
-		print('POZYCJA MYSZY : '+str(self.mouse_pos))
+		#print('POZYCJA MYSZY : '+str(self.mouse_pos))
 
 
 	
@@ -921,7 +927,7 @@ class Message(pg.sprite.Sprite):
 		self.MagicCake.screen.blit(yes_text, [self.yes_rect.x + 10, self.yes_rect.y + 5])
 		self.MagicCake.screen.blit(no_text, [self.no_rect.x + 10, self.no_rect.y + 5])
 
-		print('Message to display: ' + self.message)
+		#print('Message to display: ' + self.message)
 
 		# show message text
 
@@ -933,7 +939,7 @@ class Message(pg.sprite.Sprite):
 		self.waiting = True
 		while self.waiting:
 			self.clock.tick(FPS)
-			print("WHILE LOOP STARTED")
+			#print("WHILE LOOP STARTED")
 			self.update()
 			# update message window
 
@@ -952,11 +958,11 @@ class Message(pg.sprite.Sprite):
 				if event.type == pg.MOUSEBUTTONUP:
 					# When click on Yes rect 
 					if 490 < self.mouse_pos[0] < 540 and 260 < self.mouse_pos[1] < 290: 
-						print('YES CLICK')
+						#print('YES CLICK')
 						return self.answer(1)
 						#self.waiting = 
 					elif 560 < self.mouse_pos[0] < 610 and 260 < self.mouse_pos[1] < 290: 
-						print('NO CLICK')
+						#print('NO CLICK')
 						return self.answer(0)
 			self.draw()
 	
@@ -1022,8 +1028,6 @@ class List(pg.sprite.Sprite):
 		# ------------------------------------------------------------------------------DEBUG
 		
 
-		for i in self.selected:
-			print('Lista selected do  wyswietlenia' + str(i.name))
 
 
 
@@ -1116,17 +1120,13 @@ class List(pg.sprite.Sprite):
 
 			self.buttons.add(self.button_up)
 			self.buttons.add(self.button_down)
-		print('SELF COLECTION TO RETURN: ' + str(self.collection_to_return))
+		#print('SELF COLECTION TO RETURN: ' + str(self.collection_to_return))
 
 	def buttons_to_draw(self):
 		'''
 		Returns list of buttons to draw
 		'''
 		return self.buttons
-
-
-
-
 
 
 class Button(pg.sprite.Sprite):
@@ -1167,20 +1167,12 @@ class Button(pg.sprite.Sprite):
 			self.vel = vec(0, 0)
 			self.acc = vec(0, 0)
 			self.pos.x = self.boundry_left + 1
-			
-		
+				
 		# Right
 		if self.pos.x >= self.boundry_right:
 			self.vel = vec(0, 0)
 			self.acc = vec(0, 0)
 			self.pos.x = self.boundry_right
-
-
-
-			
-
-
-
 
 		# Check for collision with mouse
 		hits = pg.sprite.collide_rect(self, self.MagicCake.mouse)
@@ -1195,9 +1187,123 @@ class Button(pg.sprite.Sprite):
 		#for event in pg.event.get():
 
 
-		
+class SaveButton(pg.sprite.Sprite):
+	'''
+	This is save button. It saves projects :-)
+	'''
+
+	def __init__(self, program, x, y, name="save_project_button"):
+		pg.sprite.Sprite.__init__(self)
+		self.program = program
+		self.images = []
+		# Load images
+		image1 = pg.image.load("images/floppyNone.png")
+		image2 = pg.image.load("images/floppyNormal.png")
+		image3 = pg.image.load("images/floppyHover.png")
+		# Add images to list
+		self.images.append(image1)
+		self.images.append(image2)
+		self.images.append(image3)
+
+		self.image_number = 0
+		self.image = self.images[self.image_number]
+		self.rect = self.image.get_rect()
+		self.rect.x = x
+		self.rect.y = y
+
+		self.name = name
+		self.text_list = ['saved', 'remembered', 'noted', 'in memoriam']
+		self.texts = pg.sprite.Group()
 
 
+	def update(self):
+		# Check for collision with mouse
+		hits = pg.sprite.collide_rect(self, self.program.mouse)
+		if hits:
+			if len(self.program.all_cakes) > 0:
+				# Set image to hover one
+				self.image_number = 2
+		else:
+
+			# Check if there is any cake to save, if not, you cant save project
+			if len(self.program.all_cakes) > 0:
+				self.image_number = 1
+			else:
+				self.image_number = 0
+
+			# Check for collision with mouse (change images)
+
+		# Set image
+		self.image = self.images[self.image_number]
+		#print('Ilosc ciast w projekcie: ', str(len(self.program.current_project.cakes)))
+
+		# Update text group
+		self.texts.update()
+		# Check if it is time to kill text
+		for text in self.texts:
+			if text.y < text.end_y:
+				# Remove sprite form the group
+				self.texts.remove(text)
+		#print("text objects in save button: ", str(len(self.texts)))
+
+
+	def create_text(self):
+		'''
+		This method creates random text object  wich will be displayed on the screeen above 
+		floopy disc icon 
+		'''
+		# Create text object and add it to group only when there are some cakes to save
+		if len(self.program.all_cakes) > 0:
+			text = SaveText(self.text_list[random.randint(0, len(self.text_list)-1)], 
+							self.rect.x + random.randint(-5, 5),
+							self.rect.y + random.randint(0,5))
+			self.texts.add(text)
+			#print("text Created")
 
 		
+
+class SaveText(pg.sprite.Sprite):
+	'''
+	This is text object used in save button class
+	It displays random text
+	'''
+	def __init__(self, text, x, y):
+		pg.sprite.Sprite.__init__(self)
+		self.text = text
+		self.x = x
+		self.y = y
+		self.end_x = random.randint(30, 60)
+		self.end_y = self.y - random.randint(50, 70)
+		self.size = random.randint(8, 14)
+
+
+	def update(self):
+		'''
+		This method changes position
+		'''
+		self.y -= 8
+		self.size += 1
+		self.x -= 2
+
 		
+	
+
+	def draw_text(self, surface):
+		'''
+		This method displayes text on given position
+		'''
+		
+		# Drawing cakes name
+		# Drawing text inside of self surface
+		# Select the font to use, size, bold, italics
+		font = pg.font.SysFont('Courier', self.size, False, False)
+		 
+		# Render the text. "True" means anti-aliased text.
+		# Black is the color. The variable BLACK was defined
+		# above as a list of [0, 0, 0]
+		# Note: This line creates an image of the letters,
+		# but does not put it on the screen yet.
+		text = font.render(str(self.text), True, WHITE)
+		 
+		# Put the image of the text on the screen at 250x250
+		surface.blit(text, [self.x, self.y])
